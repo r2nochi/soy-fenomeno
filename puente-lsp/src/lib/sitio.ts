@@ -8,6 +8,7 @@ export const URL_SITIO = (
 export const NAVEGACION = [
   { href: "/interprete", texto: "Pedir intérprete" },
   { href: "/herramientas/alerta-visual", texto: "Alerta Visual" },
+  { href: "/trabajos", texto: "Trabajos" },
   { href: "/blog", texto: "Blog" },
   { href: "/comunidad", texto: "Comunidad" },
 ] as const;

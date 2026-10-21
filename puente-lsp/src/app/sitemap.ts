@@ -3,7 +3,7 @@ import { ARTICULOS } from "@/lib/blog";
 import { URL_SITIO } from "@/lib/sitio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const fijas = ["", "/interprete", "/herramientas/alerta-visual", "/blog", "/comunidad"].map(
+  const fijas = ["", "/interprete", "/herramientas/alerta-visual", "/blog", "/comunidad", "/trabajos"].map(
     (ruta) => ({ url: `${URL_SITIO}${ruta}` }),
   );
   const articulos = ARTICULOS.map((a) => ({
