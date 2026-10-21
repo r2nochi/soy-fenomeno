@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Contraste alto en ambos temas (texto sobre fondo ≥ 7:1). */
+:root {
+  --fondo: #ffffff;
+  --fondo-alt: #f3f5f9;
+  --texto: #0f1729;
+  --suave: #4a5468;
+  --borde: #6b7487;
+  --acento: #0b4fd1;
+  --acento-hover: #083c9f;
+  --acento-fondo: #e6eeff;
+  --sobre-acento: #ffffff;
+  --exito: #0b6b3a;
+  --exito-fondo: #e3f5ea;
+  --error: #b00020;
+  --foco: #ffb000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #0c111c;
+    --fondo-alt: #151c2b;
+    --texto: #f2f5fa;
+    --suave: #b6bfcf;
+    --borde: #8a94a8;
+    --acento: #7aa7ff;
+    --acento-hover: #a3c2ff;
+    --acento-fondo: #18284a;
+    --sobre-acento: #0c111c;
+    --exito: #5fd69a;
+    --exito-fondo: #10291c;
+    --error: #ff8a95;
+    --foco: #ffc940;
+  }
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-fondo-alt: var(--fondo-alt);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-borde: var(--borde);
+  --color-acento: var(--acento);
+  --color-acento-hover: var(--acento-hover);
+  --color-acento-fondo: var(--acento-fondo);
+  --color-sobre-acento: var(--sobre-acento);
+  --color-exito: var(--exito);
+  --color-exito-fondo: var(--exito-fondo);
+  --color-error: var(--error);
+  --font-sans: var(--font-atkinson);
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--font-atkinson), system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* Foco muy visible para navegación por teclado. */
+:focus-visible {
+  outline: 4px solid var(--foco);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

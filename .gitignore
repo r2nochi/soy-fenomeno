@@ -1,0 +1,10 @@
+# Secretos: nunca subir
+.env*
+!.env.example
+
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.vercel
+.DS_Store
