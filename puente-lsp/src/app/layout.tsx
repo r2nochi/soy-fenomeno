@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible } from "next/font/google";
 import { URL_SITIO } from "@/lib/sitio";
+import { Asistente } from "@/components/Asistente";
 import { Cabecera } from "@/components/Cabecera";
 import { PiePagina } from "@/components/PiePagina";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Cabecera />
         {children}
         <PiePagina />
+        <Asistente />
       </body>
     </html>
   );

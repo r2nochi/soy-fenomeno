@@ -9,7 +9,7 @@ export const NAVEGACION = [
   { href: "/interprete", texto: "Pedir intérprete" },
   { href: "/herramientas/alerta-visual", texto: "Alerta Visual" },
   { href: "/blog", texto: "Blog" },
-  { href: "/#comunidad", texto: "Comunidad" },
+  { href: "/comunidad", texto: "Comunidad" },
 ] as const;
 
 // Enlaces de las redes de la comunidad. Cuando exista una cuenta, se pega su
