@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
-import { ARTICULOS, articuloPorSlug, fechaLegible } from "@/lib/blog";
+import { ARTICULOS, articuloPorSlug, CREDITO_FOTOS, fechaLegible } from "@/lib/blog";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
 export function generateStaticParams() {
@@ -18,7 +19,12 @@ export async function generateMetadata({
   return {
     title: a.titulo,
     description: a.resumen,
-    openGraph: { title: a.titulo, description: a.resumen, type: "article" },
+    openGraph: {
+      title: a.titulo,
+      description: a.resumen,
+      type: "article",
+      images: [{ url: a.portada.src, alt: a.portada.alt }],
+    },
   };
 }
 
@@ -53,6 +59,23 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
           {datos.minutos} min de lectura · {fechaLegible(datos.fecha)}
         </p>
 
+        <figure className="mt-10">
+          <Image
+            src={datos.portada.src}
+            alt={datos.portada.alt}
+            width={1600}
+            height={1066}
+            priority
+            sizes="(min-width: 768px) 44rem, 100vw"
+            className="h-auto w-full rounded-[28px]"
+          />
+          <figcaption className="mt-2 text-right text-base text-suave">
+            <a href={CREDITO_FOTOS.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+              {CREDITO_FOTOS.texto}
+            </a>
+          </figcaption>
+        </figure>
+
         {!datos.revisado && (
           <p className="mt-8 flex gap-3 rounded-2xl border-2 border-borde/40 p-4 text-lg leading-snug">
             <Eye aria-hidden="true" className="mt-0.5 size-6 shrink-0 text-acento" />
@@ -81,6 +104,21 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
         <div className="mt-10">
           <Contenido />
         </div>
+
+        {datos.fuentes && datos.fuentes.length > 0 && (
+          <section aria-labelledby="titulo-fuentes" className="mt-14 border-t-2 border-borde/25 pt-8">
+            <h2 id="titulo-fuentes" className="text-2xl font-bold">Fuentes</h2>
+            <ul className="mt-4 space-y-3 text-lg leading-snug">
+              {datos.fuentes.map((f) => (
+                <li key={f.url}>
+                  <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-acento underline underline-offset-4">
+                    {f.texto}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </article>
 
       {siguiente && siguiente.slug !== slug && (

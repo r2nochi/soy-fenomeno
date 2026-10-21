@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ARTICULOS, fechaLegible } from "@/lib/blog";
 
@@ -22,8 +23,18 @@ export default function Blog() {
       {primero && (
         <Link
           href={`/blog/${primero.slug}`}
-          className="group mt-12 block rounded-[28px] bg-accion p-8 text-sobre-accion no-underline hover:bg-accion-hover sm:p-12"
+          className="group mt-12 grid overflow-hidden rounded-[28px] bg-accion text-sobre-accion no-underline hover:bg-accion-hover md:grid-cols-[1.1fr_1fr]"
         >
+          <Image
+            src={primero.portada.src}
+            alt=""
+            width={1600}
+            height={1066}
+            priority
+            sizes="(min-width: 768px) 36rem, 100vw"
+            className="h-full w-full object-cover md:order-2"
+          />
+          <div className="p-8 sm:p-12">
           <h2 className="max-w-[22ch] text-4xl leading-[1.1] font-bold text-balance sm:text-5xl">
             {primero.titulo}
           </h2>
@@ -33,6 +44,7 @@ export default function Blog() {
           <p className="mt-6 text-lg font-bold opacity-90">
             {primero.minutos} min de lectura · {fechaLegible(primero.fecha)}
           </p>
+          </div>
         </Link>
       )}
 
@@ -41,8 +53,16 @@ export default function Blog() {
           <li key={a.slug}>
             <Link
               href={`/blog/${a.slug}`}
-              className="group grid gap-3 py-8 no-underline md:grid-cols-[1fr_1.2fr] md:gap-12"
+              className="group grid gap-5 py-8 no-underline sm:grid-cols-[12rem_1fr] md:grid-cols-[14rem_1fr_1.2fr] md:gap-10"
             >
+              <Image
+                src={a.portada.src}
+                alt=""
+                width={1600}
+                height={1066}
+                sizes="14rem"
+                className="aspect-[3/2] h-auto w-full rounded-2xl object-cover"
+              />
               <h2 className="text-3xl leading-snug font-bold text-balance group-hover:underline">
                 {a.titulo}
               </h2>

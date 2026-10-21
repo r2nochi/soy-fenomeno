@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -249,6 +250,14 @@ export default function Inicio() {
                   href={`/blog/${a.slug}`}
                   className="group flex h-full flex-col p-7 no-underline"
                 >
+                  <Image
+                    src={a.portada.src}
+                    alt=""
+                    width={1600}
+                    height={1066}
+                    sizes="(min-width: 768px) 22rem, 100vw"
+                    className="mb-5 aspect-[3/2] h-auto w-full rounded-2xl object-cover"
+                  />
                   <h3 className="text-2xl leading-snug font-bold text-balance group-hover:underline">
                     {a.titulo}
                   </h3>
