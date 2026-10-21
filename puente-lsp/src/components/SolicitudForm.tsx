@@ -14,15 +14,15 @@ import {
 const estadoInicial: EstadoFormulario = { ok: false, mensaje: "" };
 
 const campo =
-  "w-full rounded-lg border-2 border-borde bg-fondo px-4 py-3 text-lg text-texto placeholder:text-suave focus:border-acento aria-[invalid=true]:border-error";
-const etiqueta = "mb-2 block text-lg font-semibold";
+  "w-full rounded-lg border-2 border-borde bg-superficie px-4 py-3 text-lg text-texto placeholder:text-suave focus:border-acento aria-[invalid=true]:border-error";
+const etiqueta = "mb-2 block text-lg font-bold";
 const opcion =
   "flex cursor-pointer items-center gap-3 rounded-lg border-2 border-borde p-4 text-lg has-[:checked]:border-acento has-[:checked]:bg-acento-fondo";
 
 function MensajeError({ id, errores }: { id: string; errores?: string[] }) {
   if (!errores?.length) return null;
   return (
-    <p id={id} className="mt-2 font-semibold text-error">
+    <p id={id} className="mt-2 font-bold text-error">
       ⚠ {errores[0]}
     </p>
   );
@@ -279,7 +279,7 @@ export function SolicitudForm() {
       </div>
 
       {estado.mensaje && (
-        <p role="alert" className="text-lg font-semibold text-error">
+        <p role="alert" className="text-lg font-bold text-error">
           {estado.mensaje}
         </p>
       )}
@@ -287,7 +287,7 @@ export function SolicitudForm() {
       <button
         type="submit"
         disabled={enviando}
-        className="w-full rounded-xl bg-acento px-6 py-4 text-xl font-bold text-sobre-acento hover:bg-acento-hover disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-xl bg-accion px-6 py-4 text-xl font-bold text-sobre-accion hover:bg-accion-hover disabled:opacity-60 sm:w-auto"
       >
         {enviando ? "Enviando…" : "Enviar solicitud"}
       </button>

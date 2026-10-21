@@ -8,3 +8,12 @@ out/
 *.tsbuildinfo
 .vercel
 .DS_Store
+
+# Archivos temporales de la herramienta de diseño (capturas, bocetos, registros).
+# Se guardan: .impeccable/surfaces/ (decisiones de diseño) y design.json.
+**/.impeccable/review/
+**/.impeccable/mocks/
+**/.impeccable/questions/
+**/.impeccable/build/
+**/.impeccable/*.log
+**/.impeccable/hook.cache.json

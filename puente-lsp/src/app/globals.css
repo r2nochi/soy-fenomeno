@@ -2,8 +2,10 @@
 
 /* Contraste alto en ambos temas (texto sobre fondo ≥ 7:1). */
 :root {
-  --fondo: #ffffff;
-  --fondo-alt: #f3f5f9;
+  /* Campo de la página (gris azulado), superficie de las piezas (blanco). */
+  --fondo: #f3f5f9;
+  --superficie: #ffffff;
+  --fondo-alt: #e7ebf2;
   --texto: #0f1729;
   --suave: #4a5468;
   --borde: #6b7487;
@@ -14,13 +16,21 @@
   --exito: #0b6b3a;
   --exito-fondo: #e3f5ea;
   --error: #b00020;
-  --foco: #ffb000;
+  --foco: #a34a00;
+  /* Iguales en ambos temas: el azul de acción y la tinta de las muestras. */
+  --accion: #0b4fd1;
+  --accion-hover: #083c9f;
+  --sobre-accion: #ffffff;
+  --tinta: #0f1729;
+  --sobre-tinta: #f2f5fa;
+  --acento-claro: #9ec0ff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --fondo: #0c111c;
-    --fondo-alt: #151c2b;
+    --superficie: #151c2b;
+    --fondo-alt: #111827;
     --texto: #f2f5fa;
     --suave: #b6bfcf;
     --borde: #8a94a8;
@@ -32,6 +42,7 @@
     --exito-fondo: #10291c;
     --error: #ff8a95;
     --foco: #ffc940;
+    --tinta: #1d2738;
   }
 }
 
@@ -48,6 +59,13 @@
   --color-exito: var(--exito);
   --color-exito-fondo: var(--exito-fondo);
   --color-error: var(--error);
+  --color-acento-claro: var(--acento-claro);
+  --color-superficie: var(--superficie);
+  --color-accion: var(--accion);
+  --color-accion-hover: var(--accion-hover);
+  --color-sobre-accion: var(--sobre-accion);
+  --color-tinta: var(--tinta);
+  --color-sobre-tinta: var(--sobre-tinta);
   --font-sans: var(--font-atkinson);
 }
 
@@ -59,9 +77,12 @@ body {
 }
 
 /* Foco muy visible para navegación por teclado. */
+/* Foco de dos tonos: anillo de color separado del elemento por un borde del
+   color de fondo, visible sobre cualquier superficie (mínimo 3:1). */
 :focus-visible {
   outline: 4px solid var(--foco);
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--fondo);
   border-radius: 6px;
 }
 
@@ -93,6 +114,41 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .aviso-parpadeo {
+    animation: none;
+  }
+}
+
+/* Partes del navegador con los colores del sitio. */
+::selection {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+html {
+  caret-color: var(--acento);
+  scrollbar-color: var(--borde) var(--fondo-alt);
+  text-underline-offset: 0.2em;
+}
+
+/* Muestra de subtítulos del inicio: el texto se ve siempre; la etiqueta de
+   sonido se resalta una sola vez al cargar, como cuando la app la detecta. */
+@keyframes resaltar-sonido {
+  0%,
+  35% {
+    background-color: var(--accion);
+    color: var(--sobre-accion);
+  }
+}
+
+.subtitulo-sonido {
+  border-radius: 0.5rem;
+  padding: 0 0.35rem;
+  margin-inline: -0.35rem;
+  animation: resaltar-sonido 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subtitulo-sonido {
     animation: none;
   }
 }

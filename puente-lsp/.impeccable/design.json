@@ -1,0 +1,547 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T21:48:29.311Z",
+  "title": "Design System: Puente LSP",
+  "extensions": {
+    "colorMeta": {
+      "campo": {
+        "role": "neutral",
+        "displayName": "Campo Gris Azulado",
+        "cssVar": "--fondo",
+        "tonalRamp": [
+          "oklch(15% 0.003 264.5)",
+          "oklch(25% 0.006 264.5)",
+          "oklch(35% 0.006 264.5)",
+          "oklch(45% 0.006 264.5)",
+          "oklch(55% 0.006 264.5)",
+          "oklch(70% 0.006 264.5)",
+          "oklch(85% 0.006 264.5)",
+          "oklch(95% 0.002 264.5)"
+        ],
+        "darkValue": "#0c111c"
+      },
+      "superficie": {
+        "role": "neutral",
+        "displayName": "Superficie",
+        "cssVar": "--superficie",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(70% 0.000 89.9)",
+          "oklch(85% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ],
+        "darkValue": "#151c2b"
+      },
+      "campo-alt": {
+        "role": "neutral",
+        "displayName": "Campo Alterno",
+        "cssVar": "--fondo-alt",
+        "tonalRamp": [
+          "oklch(15% 0.006 261.8)",
+          "oklch(25% 0.010 261.8)",
+          "oklch(35% 0.010 261.8)",
+          "oklch(45% 0.010 261.8)",
+          "oklch(55% 0.010 261.8)",
+          "oklch(70% 0.010 261.8)",
+          "oklch(85% 0.010 261.8)",
+          "oklch(95% 0.004 261.8)"
+        ],
+        "darkValue": "#111827"
+      },
+      "texto": {
+        "role": "neutral",
+        "displayName": "Tinta (texto)",
+        "cssVar": "--texto",
+        "tonalRamp": [
+          "oklch(15% 0.023 265.1)",
+          "oklch(25% 0.038 265.1)",
+          "oklch(35% 0.038 265.1)",
+          "oklch(45% 0.038 265.1)",
+          "oklch(55% 0.038 265.1)",
+          "oklch(70% 0.038 265.1)",
+          "oklch(85% 0.038 265.1)",
+          "oklch(95% 0.013 265.1)"
+        ],
+        "darkValue": "#f2f5fa"
+      },
+      "suave": {
+        "role": "neutral",
+        "displayName": "Pizarra",
+        "cssVar": "--suave",
+        "tonalRamp": [
+          "oklch(15% 0.021 264.1)",
+          "oklch(25% 0.035 264.1)",
+          "oklch(35% 0.035 264.1)",
+          "oklch(45% 0.035 264.1)",
+          "oklch(55% 0.035 264.1)",
+          "oklch(70% 0.035 264.1)",
+          "oklch(85% 0.035 264.1)",
+          "oklch(95% 0.012 264.1)"
+        ],
+        "darkValue": "#b6bfcf"
+      },
+      "borde": {
+        "role": "neutral",
+        "displayName": "Borde",
+        "cssVar": "--borde",
+        "tonalRamp": [
+          "oklch(15% 0.019 265.3)",
+          "oklch(25% 0.031 265.3)",
+          "oklch(35% 0.031 265.3)",
+          "oklch(45% 0.031 265.3)",
+          "oklch(55% 0.031 265.3)",
+          "oklch(70% 0.031 265.3)",
+          "oklch(85% 0.031 265.3)",
+          "oklch(95% 0.011 265.3)"
+        ],
+        "darkValue": "#8a94a8"
+      },
+      "acento": {
+        "role": "primary",
+        "displayName": "Azul Puente (texto e íconos)",
+        "cssVar": "--acento",
+        "tonalRamp": [
+          "oklch(15% 0.120 262.0)",
+          "oklch(25% 0.200 262.0)",
+          "oklch(35% 0.200 262.0)",
+          "oklch(45% 0.200 262.0)",
+          "oklch(55% 0.200 262.0)",
+          "oklch(70% 0.200 262.0)",
+          "oklch(85% 0.200 262.0)",
+          "oklch(95% 0.070 262.0)"
+        ],
+        "darkValue": "#7aa7ff"
+      },
+      "acento-hover": {
+        "role": "primary",
+        "displayName": "Azul Puente Profundo (texto)",
+        "cssVar": "--acento-hover",
+        "tonalRamp": [
+          "oklch(15% 0.101 261.9)",
+          "oklch(25% 0.169 261.9)",
+          "oklch(35% 0.169 261.9)",
+          "oklch(45% 0.169 261.9)",
+          "oklch(55% 0.169 261.9)",
+          "oklch(70% 0.169 261.9)",
+          "oklch(85% 0.169 261.9)",
+          "oklch(95% 0.059 261.9)"
+        ],
+        "darkValue": "#a3c2ff"
+      },
+      "acento-fondo": {
+        "role": "primary",
+        "displayName": "Azul Velado",
+        "cssVar": "--acento-fondo",
+        "tonalRamp": [
+          "oklch(15% 0.015 265.6)",
+          "oklch(25% 0.024 265.6)",
+          "oklch(35% 0.024 265.6)",
+          "oklch(45% 0.024 265.6)",
+          "oklch(55% 0.024 265.6)",
+          "oklch(70% 0.024 265.6)",
+          "oklch(85% 0.024 265.6)",
+          "oklch(95% 0.009 265.6)"
+        ],
+        "darkValue": "#18284a"
+      },
+      "sobre-acento": {
+        "role": "primary",
+        "displayName": "Sobre acento",
+        "cssVar": "--sobre-acento",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(70% 0.000 89.9)",
+          "oklch(85% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ],
+        "darkValue": "#0c111c"
+      },
+      "accion": {
+        "role": "primary",
+        "displayName": "Azul Puente (relleno, invariante)",
+        "cssVar": "--accion",
+        "tonalRamp": [
+          "oklch(15% 0.120 262.0)",
+          "oklch(25% 0.200 262.0)",
+          "oklch(35% 0.200 262.0)",
+          "oklch(45% 0.200 262.0)",
+          "oklch(55% 0.200 262.0)",
+          "oklch(70% 0.200 262.0)",
+          "oklch(85% 0.200 262.0)",
+          "oklch(95% 0.070 262.0)"
+        ]
+      },
+      "accion-hover": {
+        "role": "primary",
+        "displayName": "Azul Puente Profundo (invariante)",
+        "cssVar": "--accion-hover",
+        "tonalRamp": [
+          "oklch(15% 0.101 261.9)",
+          "oklch(25% 0.169 261.9)",
+          "oklch(35% 0.169 261.9)",
+          "oklch(45% 0.169 261.9)",
+          "oklch(55% 0.169 261.9)",
+          "oklch(70% 0.169 261.9)",
+          "oklch(85% 0.169 261.9)",
+          "oklch(95% 0.059 261.9)"
+        ]
+      },
+      "sobre-accion": {
+        "role": "primary",
+        "displayName": "Sobre acción (invariante)",
+        "cssVar": "--sobre-accion",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(70% 0.000 89.9)",
+          "oklch(85% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta de muestras (invariante)",
+        "cssVar": "--tinta",
+        "tonalRamp": [
+          "oklch(15% 0.023 265.1)",
+          "oklch(25% 0.038 265.1)",
+          "oklch(35% 0.038 265.1)",
+          "oklch(45% 0.038 265.1)",
+          "oklch(55% 0.038 265.1)",
+          "oklch(70% 0.038 265.1)",
+          "oklch(85% 0.038 265.1)",
+          "oklch(95% 0.013 265.1)"
+        ],
+        "darkValue": "#1d2738"
+      },
+      "sobre-tinta": {
+        "role": "neutral",
+        "displayName": "Papel (invariante)",
+        "cssVar": "--sobre-tinta",
+        "tonalRamp": [
+          "oklch(15% 0.004 260.7)",
+          "oklch(25% 0.007 260.7)",
+          "oklch(35% 0.007 260.7)",
+          "oklch(45% 0.007 260.7)",
+          "oklch(55% 0.007 260.7)",
+          "oklch(70% 0.007 260.7)",
+          "oklch(85% 0.007 260.7)",
+          "oklch(95% 0.003 260.7)"
+        ]
+      },
+      "acento-claro": {
+        "role": "primary",
+        "displayName": "Azul Señal (invariante)",
+        "cssVar": "--acento-claro",
+        "tonalRamp": [
+          "oklch(15% 0.058 262.4)",
+          "oklch(25% 0.097 262.4)",
+          "oklch(35% 0.097 262.4)",
+          "oklch(45% 0.097 262.4)",
+          "oklch(55% 0.097 262.4)",
+          "oklch(70% 0.097 262.4)",
+          "oklch(85% 0.097 262.4)",
+          "oklch(95% 0.034 262.4)"
+        ]
+      },
+      "exito": {
+        "role": "status",
+        "displayName": "Verde Listo",
+        "cssVar": "--exito",
+        "tonalRamp": [
+          "oklch(15% 0.068 153.7)",
+          "oklch(25% 0.114 153.7)",
+          "oklch(35% 0.114 153.7)",
+          "oklch(45% 0.114 153.7)",
+          "oklch(55% 0.114 153.7)",
+          "oklch(70% 0.114 153.7)",
+          "oklch(85% 0.114 153.7)",
+          "oklch(95% 0.040 153.7)"
+        ],
+        "darkValue": "#5fd69a"
+      },
+      "exito-fondo": {
+        "role": "status",
+        "displayName": "Fondo Listo",
+        "cssVar": "--exito-fondo",
+        "tonalRamp": [
+          "oklch(15% 0.014 159.1)",
+          "oklch(25% 0.024 159.1)",
+          "oklch(35% 0.024 159.1)",
+          "oklch(45% 0.024 159.1)",
+          "oklch(55% 0.024 159.1)",
+          "oklch(70% 0.024 159.1)",
+          "oklch(85% 0.024 159.1)",
+          "oklch(95% 0.008 159.1)"
+        ],
+        "darkValue": "#10291c"
+      },
+      "error": {
+        "role": "status",
+        "displayName": "Rojo Error",
+        "cssVar": "--error",
+        "tonalRamp": [
+          "oklch(15% 0.116 23.6)",
+          "oklch(25% 0.193 23.6)",
+          "oklch(35% 0.193 23.6)",
+          "oklch(45% 0.193 23.6)",
+          "oklch(55% 0.193 23.6)",
+          "oklch(70% 0.193 23.6)",
+          "oklch(85% 0.193 23.6)",
+          "oklch(95% 0.068 23.6)"
+        ],
+        "darkValue": "#ff8a95"
+      },
+      "foco": {
+        "role": "status",
+        "displayName": "Ámbar Foco",
+        "cssVar": "--foco",
+        "tonalRamp": [
+          "oklch(15% 0.082 49.7)",
+          "oklch(25% 0.137 49.7)",
+          "oklch(35% 0.137 49.7)",
+          "oklch(45% 0.137 49.7)",
+          "oklch(55% 0.137 49.7)",
+          "oklch(70% 0.137 49.7)",
+          "oklch(85% 0.137 49.7)",
+          "oklch(95% 0.048 49.7)"
+        ],
+        "darkValue": "#ffc940"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titular de página, máximo 18ch, text-wrap balance."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de sección y de la pieza principal."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos de piezas de herramienta y de artículos en lista."
+      },
+      "title-sm": {
+        "displayName": "Title pequeño",
+        "purpose": "Artículo destacado, filas de público, h3 de artículo."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Línea de apoyo bajo el titular, en Pizarra, 50-52ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto de apoyo de piezas; el contenido nunca baja de 20px."
+      },
+      "body-articulo": {
+        "displayName": "Body de artículo",
+        "purpose": "Párrafos MDX en columna de 44rem."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Etiquetas de formulario, navegación y metadatos."
+      }
+    },
+    "shadows": [
+      {
+        "name": "halo-azul",
+        "value": "0 18px 40px -18px rgb(11 79 209 / 0.6)",
+        "purpose": "Solo bajo la pieza principal azul del inicio. Única sombra del sistema."
+      },
+      {
+        "name": "foco",
+        "value": "outline: 4px solid var(--foco); outline-offset: 3px; box-shadow: 0 0 0 3px var(--fondo); border-radius: 6px",
+        "purpose": "Anillo de foco de dos tonos, global en :focus-visible."
+      }
+    ],
+    "motion": [
+      {
+        "name": "resaltar-sonido",
+        "value": "2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both",
+        "purpose": "Resaltado único de la etiqueta de sonido en la muestra de subtítulos; el texto se ve siempre."
+      },
+      {
+        "name": "parpadeo",
+        "value": "1s ease-in-out infinite; brightness 1 -> 0.7",
+        "purpose": "Aviso de Alerta Visual a 1 Hz como máximo (WCAG 2.3.1); se oscurece, no se aclara."
+      },
+      {
+        "name": "flecha",
+        "value": "translateX(4px) al pasar el puntero",
+        "purpose": "Flecha de acción dentro de piezas enlazadas."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none",
+        "purpose": "Todo movimiento se apaga con prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal: Azul Puente invariante, texto blanco en negrita.",
+      "html": "<button class=\"ds-btn-primary\">Escribir por WhatsApp</button>",
+      "css": ".ds-btn-primary{background:var(--accion,#0b4fd1);color:var(--sobre-accion,#fff);font:700 1.25rem/1.4 'Atkinson Hyperlegible',system-ui,sans-serif;padding:16px 24px;border:0;border-radius:16px;cursor:pointer}.ds-btn-primary:hover{background:var(--accion-hover,#083c9f)}.ds-btn-primary:focus-visible{outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}.ds-btn-primary:disabled{opacity:.6}"
+    },
+    {
+      "name": "Botón secundario",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Controles de herramienta: borde de 2px, sin relleno.",
+      "html": "<button class=\"ds-btn-secondary\">Pantalla completa</button>",
+      "css": ".ds-btn-secondary{background:transparent;color:var(--texto,#0f1729);font:700 1.125rem/1.5 'Atkinson Hyperlegible',system-ui,sans-serif;padding:8px 16px;border:2px solid var(--borde,#6b7487);border-radius:12px;cursor:pointer}.ds-btn-secondary:hover{background:var(--fondo-alt,#e7ebf2)}.ds-btn-secondary:focus-visible{outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}"
+    },
+    {
+      "name": "Pieza principal",
+      "kind": "card",
+      "refersTo": "pieza-principal",
+      "description": "La única pieza rellena de azul, con botón blanco y flecha que avanza.",
+      "html": "<a class=\"ds-pieza-principal\" href=\"#\"><svg aria-hidden=\"true\" width=\"56\" height=\"56\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 12h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 14\"/><path d=\"m7 18 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9\"/><path d=\"m2 13 6 6\"/></svg><h2>Pedir intérprete LSP</h2><p>Por videollamada, para tu cita médica, trámite o reunión.</p><span class=\"ds-pieza-boton\">Pedir intérprete <svg aria-hidden=\"true\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-pieza-principal{display:flex;flex-direction:column;background:var(--accion,#0b4fd1);color:var(--sobre-accion,#fff);border-radius:28px;padding:32px;text-decoration:none;box-shadow:0 18px 40px -18px rgb(11 79 209/.6);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;max-width:420px}.ds-pieza-principal:hover{background:var(--accion-hover,#083c9f)}.ds-pieza-principal:focus-visible{outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}.ds-pieza-principal h2{margin:24px 0 0;font-size:2.25rem;line-height:1.25;font-weight:700}.ds-pieza-principal p{margin:12px 0 0;font-size:1.25rem;line-height:1.375;opacity:.9}.ds-pieza-boton{margin-top:40px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--accion,#0b4fd1);border-radius:16px;padding:16px 24px;font-size:1.25rem;font-weight:700}.ds-pieza-boton svg{transition:transform .15s}.ds-pieza-principal:hover .ds-pieza-boton svg{transform:translateX(4px)}"
+    },
+    {
+      "name": "Pieza de herramienta",
+      "kind": "card",
+      "refersTo": "pieza",
+      "description": "Superficie blanca, borde de 3px al 55%, ícono dibujado en acento.",
+      "html": "<a class=\"ds-pieza\" href=\"#\"><svg aria-hidden=\"true\" width=\"40\" height=\"40\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.268 21a2 2 0 0 0 3.464 0\"/><path d=\"M22 8c0-2.3-.8-4.3-2-6\"/><path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\"/><path d=\"M4 2C2.8 3.7 2 5.7 2 8\"/></svg><h2>Alerta Visual</h2><p>Los sonidos de tu casa, en avisos que se ven.</p></a>",
+      "css": ".ds-pieza{display:block;background:var(--superficie,#fff);color:var(--texto,#0f1729);border:3px solid color-mix(in srgb,var(--borde,#6b7487) 55%,transparent);border-radius:28px;padding:28px;text-decoration:none;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;max-width:360px}.ds-pieza svg{color:var(--acento,#0b4fd1)}.ds-pieza:hover{border-color:var(--acento,#0b4fd1)}.ds-pieza:focus-visible{outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}.ds-pieza h2{margin:16px 0 0;font-size:1.875rem;line-height:1.25;font-weight:700}.ds-pieza p{margin:4px 0 0;font-size:1.25rem;line-height:1.375;color:var(--suave,#4a5468)}"
+    },
+    {
+      "name": "Muestra de subtítulos",
+      "kind": "custom",
+      "refersTo": "muestra-tinta",
+      "description": "Ejemplo en tinta invariante; la etiqueta de sonido se resalta una vez al cargar.",
+      "html": "<div class=\"ds-muestra\"><p>Hola, ¿ya llegaste? Te estaba esperando.</p><p class=\"ds-sonido\">(🚨 posible sirena)</p><p>Sí, perdón, había mucho tráfico.</p><span class=\"ds-ejemplo\">Ejemplo</span></div>",
+      "css": ".ds-muestra{background:var(--tinta,#0f1729);color:var(--sobre-tinta,#f2f5fa);border-radius:16px;padding:16px 20px;font:400 1.125rem/1.375 'Atkinson Hyperlegible',system-ui,sans-serif;max-width:360px}.ds-muestra p{margin:4px 0}.ds-muestra .ds-sonido{width:fit-content;font-weight:700;color:var(--acento-claro,#9ec0ff);border-radius:.5rem;padding:0 .35rem;margin-inline:-.35rem;animation:ds-resaltar 2.4s cubic-bezier(.16,1,.3,1) .6s both}@keyframes ds-resaltar{0%,35%{background:var(--accion,#0b4fd1);color:#fff}}.ds-ejemplo{display:block;margin-top:12px;text-align:right;font-size:.875rem;font-weight:700;opacity:.7}@media (prefers-reduced-motion:reduce){.ds-muestra .ds-sonido{animation:none}}"
+    },
+    {
+      "name": "Campo de formulario",
+      "kind": "input",
+      "refersTo": "input-campo",
+      "description": "Borde de 2px, esquinas de 8px; foco en acento más el anillo global.",
+      "html": "<label class=\"ds-etiqueta\" for=\"ds-nombre\">Tu nombre</label><input id=\"ds-nombre\" class=\"ds-campo\">",
+      "css": ".ds-etiqueta{display:block;margin-bottom:8px;font:700 1.125rem/1.6 'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--texto,#0f1729)}.ds-campo{width:100%;max-width:360px;background:var(--superficie,#fff);color:var(--texto,#0f1729);border:2px solid var(--borde,#6b7487);border-radius:8px;padding:12px 16px;font:400 1.125rem 'Atkinson Hyperlegible',system-ui,sans-serif}.ds-campo:focus-visible{border-color:var(--acento,#0b4fd1);outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}.ds-campo[aria-invalid=true]{border-color:var(--error,#b00020)}"
+    },
+    {
+      "name": "Opción marcable",
+      "kind": "chip",
+      "refersTo": "input-campo",
+      "description": "Radio o casilla envuelto en una opción; marcada se llena de Azul Velado.",
+      "html": "<label class=\"ds-opcion\"><input type=\"radio\" name=\"ds-t\" checked> Persona Sorda</label><label class=\"ds-opcion\"><input type=\"radio\" name=\"ds-t\"> Empresa o entidad</label>",
+      "css": ".ds-opcion{display:flex;align-items:center;gap:12px;margin-bottom:12px;max-width:320px;cursor:pointer;border:2px solid var(--borde,#6b7487);border-radius:8px;padding:16px;font:400 1.125rem 'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--texto,#0f1729)}.ds-opcion input{width:20px;height:20px;accent-color:var(--acento,#0b4fd1)}.ds-opcion:has(:checked){border-color:var(--acento,#0b4fd1);background:var(--acento-fondo,#e6eeff)}.ds-opcion:has(:focus-visible){outline:4px solid var(--foco,#a34a00);outline-offset:3px}"
+    },
+    {
+      "name": "Chip de sonido",
+      "kind": "chip",
+      "refersTo": "chip-sonido",
+      "description": "Pastilla con borde de 2px para los sonidos detectados ahora (el emoji es contenido de la herramienta).",
+      "html": "<span class=\"ds-chip\">🚪 Timbre</span> <span class=\"ds-chip\">🐕 Perro</span>",
+      "css": ".ds-chip{display:inline-block;border:2px solid var(--borde,#6b7487);border-radius:9999px;padding:2px 12px;font:700 1.125rem 'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--texto,#0f1729)}"
+    },
+    {
+      "name": "Navegación",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Cabecera en Superficie con logotipo de puente; enlaces en negrita subrayados en acento al pasar.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-marca\" href=\"#\"><svg aria-hidden=\"true\" viewBox=\"0 0 40 28\" width=\"40\" height=\"28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linecap=\"round\"><path d=\"M3 24 Q20 -4 37 24\"/><path d=\"M2 24h36\"/><path d=\"M12 24v-9M28 24v-9M20 24V8\"/></svg>Puente LSP</a><nav><a href=\"#\">Intérprete</a><a href=\"#\">Alerta Visual</a><a href=\"#\">Blog</a></nav></header>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px;background:var(--superficie,#fff);border-bottom:2px solid color-mix(in srgb,var(--borde,#6b7487) 25%,transparent);padding:16px 32px;font-family:'Atkinson Hyperlegible',system-ui,sans-serif}.ds-marca{display:inline-flex;align-items:center;gap:12px;font-size:1.5rem;font-weight:700;letter-spacing:-.025em;color:var(--texto,#0f1729);text-decoration:none}.ds-marca svg{color:var(--acento,#0b4fd1)}.ds-nav nav{display:flex;flex-wrap:wrap;gap:4px 24px}.ds-nav nav a{font-size:1.125rem;font-weight:700;color:var(--texto,#0f1729);text-decoration:none;text-decoration-color:var(--acento,#0b4fd1);text-decoration-thickness:3px;text-underline-offset:8px;padding:4px 0;border-radius:6px}.ds-nav nav a:hover{text-decoration-line:underline}.ds-nav a:focus-visible{outline:4px solid var(--foco,#a34a00);outline-offset:3px;box-shadow:0 0 0 3px var(--fondo,#f3f5f9)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La mesa de herramientas",
+    "overview": "Puente LSP no es un folleto: es una mesa donde cada herramienta está a la vista y ya muestra lo que hace. Sobre un campo gris azulado claro descansan piezas blancas de esquinas generosas y borde grueso; una sola pieza, la de pedir intérprete, ocupa entera el azul de acción. La página se lee con los ojos antes que con las palabras: íconos dibujados, color con un rol fijo y estructura clara antes que párrafos.\n\nLa densidad es baja y la letra, grande. Todo el sistema usa una sola familia, Atkinson Hyperlegible, en dos pesos, con texto de cuerpo a 20px y titulares compactos de tracking cerrado. El contraste de texto apunta a 7:1 en los dos temas (claro y oscuro, por `prefers-color-scheme`). El movimiento es casi nulo: un único resaltado al cargar en la muestra de subtítulos, un parpadeo de 1 Hz en los avisos de Alerta Visual, y nada más; todo se apaga con `prefers-reduced-motion`.\n\nLas muestras de lo que la herramienta produce (subtítulo con sonido intercalado, aviso en miniatura) se pintan en tinta oscura que no cambia con el tema y llevan la marca «Ejemplo». Es la única zona donde aparecen emoji, porque son exactamente lo que la herramienta muestra.",
+    "keyCharacteristics": [
+      "Campo gris azulado, piezas blancas con borde de 3px y esquinas de 28px.",
+      "Un solo azul de acción, invariante entre temas, para la acción principal.",
+      "Una familia tipográfica (Atkinson Hyperlegible 400/700), cuerpo de 20px.",
+      "Íconos dibujados con trazo de 2 a 2,25; emoji solo como contenido de las herramientas.",
+      "Muestras en tinta invariante, marcadas «Ejemplo».",
+      "Foco de dos tonos muy visible; movimiento mínimo y siempre desactivable."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "El azul de acción rellena una sola pieza o un solo botón primario por vista. Todo lo demás es superficie blanca con borde; el azul en texto (`acento`) marca enlaces, íconos y estados, nunca un segundo bloque relleno.",
+        "section": "colors"
+      },
+      {
+        "name": "The Invariant Ink Rule",
+        "body": "Lo que la herramienta produce (subtítulos, avisos de ejemplo, citas) se pinta en tinta y Papel que no cambian con el tema, para que la muestra se vea igual que la herramienta real.",
+        "section": "colors"
+      },
+      {
+        "name": "The Seven-to-One Rule",
+        "body": "Texto sobre fondo apunta a 7:1 en ambos temas. Para aclarar un color con texto blanco encima, se oscurece; nunca se aclara.",
+        "section": "colors"
+      },
+      {
+        "name": "The Twenty-Pixel Floor Rule",
+        "body": "Los párrafos de piezas, secciones y artículos no bajan de 20px (1.25rem). Los 18px quedan para etiquetas, campos, navegación, metadatos y el texto de las muestras; los 16px, solo para notas al pie y avisos de privacidad.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Label-Above Rule",
+        "body": "Los títulos se sostienen solos: no llevan etiqueta pequeña ni categoría encima. El contexto («Del blog · 5 min de lectura») va debajo, en Pizarra.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hierarchy Mosaic Rule",
+        "body": "Nunca una fila de tarjetas iguales: las piezas tienen tamaños distintos según su importancia, y la más importante es la más grande.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-Table Rule",
+        "body": "Las piezas descansan planas sobre la mesa. Solo la pieza de la acción principal lleva sombra, suave y del mismo azul; ninguna otra superficie se levanta.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do apoyar cada pieza en Superficie con borde de 3px al 55% y esquinas de 28px sobre el campo gris azulado.",
+      "Do reservar el relleno de Azul Puente para una sola pieza o botón primario por vista.",
+      "Do usar íconos dibujados (lucide) con trazo de 2 a 2,25, a 40px en piezas y 48 a 56px en las cabezas de sección.",
+      "Do pintar las muestras de herramienta en tinta invariante y marcarlas con «Ejemplo».",
+      "Do mantener los párrafos en 20px o más, en Atkinson Hyperlegible regular o negrita.",
+      "Do desactivar toda animación con `prefers-reduced-motion` y mantener cualquier parpadeo en 1 vez por segundo o menos.",
+      "Do dejar el contenido visible por defecto: una animación solo resalta lo que ya está en pantalla."
+    ],
+    "donts": [
+      "Don't armar filas de tarjetas iguales bajo un titular centrado; el mosaico tiene jerarquía.",
+      "Don't usar emoji ni caracteres (⚠, ✓, →) como íconos de interfaz; los emoji solo aparecen como contenido de las herramientas (sonidos, avisos, muestras).",
+      "Don't poner etiquetas pequeñas ni categorías encima de los títulos.",
+      "Don't añadir sombras a piezas, paneles o botones; la única sombra es el Halo azul de la pieza principal.",
+      "Don't aclarar un color que lleva texto blanco encima; se oscurece.",
+      "Don't usar parallax, reproducción automática ni scroll secuestrado.",
+      "Don't usar el Ámbar Foco para nada que no sea el foco."
+    ]
+  }
+}

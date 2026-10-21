@@ -209,7 +209,7 @@ export function Subtitulos({
     <section
       ref={panelRef}
       aria-labelledby="titulo-subtitulos"
-      className="mb-10 flex flex-col rounded-3xl border-2 border-borde bg-fondo p-4 sm:p-6 [&:fullscreen]:h-screen [&:fullscreen]:rounded-none"
+      className="mb-10 flex flex-col rounded-3xl border-2 border-borde bg-superficie p-4 sm:p-6 [&:fullscreen]:h-screen [&:fullscreen]:rounded-none"
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <h2 id="titulo-subtitulos" className="mr-auto text-2xl font-bold">
@@ -255,7 +255,7 @@ export function Subtitulos({
           ahora.map((d) => (
             <span
               key={d.etiqueta.id}
-              className="rounded-full border-2 border-borde px-3 py-0.5 font-semibold"
+              className="rounded-full border-2 border-borde px-3 py-0.5 font-bold"
             >
               {textoEtiqueta(d)}
             </span>
@@ -299,11 +299,11 @@ export function Subtitulos({
           value={respuesta}
           onChange={(e) => setRespuesta(e.target.value)}
           placeholder="Escribe para responder en voz alta…"
-          className="flex-1 rounded-xl border-2 border-borde bg-fondo px-4 py-3 text-xl"
+          className="flex-1 rounded-xl border-2 border-borde bg-superficie px-4 py-3 text-xl"
         />
         <button
           type="submit"
-          className="rounded-xl bg-acento px-6 py-3 text-xl font-bold text-sobre-acento hover:bg-acento-hover"
+          className="rounded-xl bg-accion px-6 py-3 text-xl font-bold text-sobre-accion hover:bg-accion-hover"
         >
           🔊 Decir
         </button>
@@ -332,7 +332,7 @@ const Lista = memo(function Lista({ items }: { items: Item[] }) {
     <>
       {items.map((i) =>
         i.tipo === "sonido" ? (
-          <p key={i.id} className="my-2 font-semibold text-acento">
+          <p key={i.id} className="my-2 font-bold text-acento">
             ({i.texto})
           </p>
         ) : i.tipo === "yo" ? (

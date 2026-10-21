@@ -236,7 +236,7 @@ export function AlertaApp() {
               className="mx-auto mb-3 h-6 w-full max-w-md overflow-hidden rounded-full border-2 border-borde bg-fondo"
             >
               <div
-                className="h-full bg-acento transition-[width] duration-200"
+                className="h-full bg-accion transition-[width] duration-200"
                 style={{ width: `${Math.round(nivel * 100)}%` }}
               />
             </div>
@@ -247,7 +247,7 @@ export function AlertaApp() {
             {!subtitulos && (
               <button
                 onClick={() => setSubtitulos(true)}
-                className="mb-4 w-full max-w-md rounded-2xl bg-acento px-8 py-5 text-2xl font-bold text-sobre-acento hover:bg-acento-hover"
+                className="mb-4 w-full max-w-md rounded-2xl bg-accion px-8 py-5 text-2xl font-bold text-sobre-accion hover:bg-accion-hover"
               >
                 💬 Mostrar subtítulos
               </button>
@@ -265,7 +265,7 @@ export function AlertaApp() {
             {error && (
               <p
                 role="alert"
-                className="mb-6 rounded-xl border-2 border-error p-4 text-xl font-semibold text-error"
+                className="mb-6 rounded-xl border-2 border-error p-4 text-xl font-bold text-error"
               >
                 ⚠ {error}
               </p>
@@ -273,7 +273,7 @@ export function AlertaApp() {
             <button
               onClick={empezar}
               disabled={estado === "cargando"}
-              className="mb-4 w-full max-w-md rounded-2xl bg-acento px-8 py-6 text-2xl font-bold text-sobre-acento hover:bg-acento-hover disabled:opacity-60"
+              className="mb-4 w-full max-w-md rounded-2xl bg-accion px-8 py-6 text-2xl font-bold text-sobre-accion hover:bg-accion-hover disabled:opacity-60"
             >
               {estado === "cargando" ? "Preparando…" : "▶ Empezar a escuchar"}
             </button>
@@ -314,7 +314,7 @@ export function AlertaApp() {
                   <span aria-hidden="true" className="text-3xl">
                     {s.icono}
                   </span>
-                  <span className="flex-1 font-semibold">{s.nombre}</span>
+                  <span className="flex-1 font-bold">{s.nombre}</span>
                   <time className="text-suave">{hora(d.hora)}</time>
                 </li>
               );
