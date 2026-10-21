@@ -72,3 +72,27 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Avisos de Alerta Visual. Se oscurece (no se aclara) para que el texto
+   blanco mantenga el contraste. Parpadeo de 1 vez por segundo: muy por debajo
+   del límite de 3 por segundo que puede provocar crisis fotosensibles
+   (WCAG 2.3.1). */
+@keyframes parpadeo {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.7);
+  }
+}
+
+.aviso-parpadeo {
+  animation: parpadeo 1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aviso-parpadeo {
+    animation: none;
+  }
+}

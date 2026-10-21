@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { AlertaCliente } from "@/components/AlertaCliente";
 
-export default function Inicio() {
+export const metadata: Metadata = {
+  title: "Alerta Visual: avisos de sonido y subtítulos en vivo",
+  description:
+    "Convierte alarmas, timbre, teléfono y bebé llorando en avisos visuales, y la voz en subtítulos con los sonidos intercalados. Gratis y sin registro.",
+};
+
+export default function AlertaVisual() {
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
+    <main id="contenido" className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
       <header className="mb-8">
         <h1 className="mb-3 text-4xl font-bold sm:text-5xl">
           🔔 Alerta Visual

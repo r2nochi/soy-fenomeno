@@ -106,12 +106,14 @@ export function AlertaApp() {
   }, []);
 
   const aviso = cola[0] ?? null;
+  // Título original de la página, para restaurarlo al cerrar los avisos.
+  const [tituloPagina] = useState(() => document.title);
 
   useEffect(() => {
     document.title = aviso
       ? `${SONIDO_POR_ID[aviso.id].icono} ${SONIDO_POR_ID[aviso.id].nombre}`
-      : "Alerta Visual";
-  }, [aviso]);
+      : tituloPagina;
+  }, [aviso, tituloPagina]);
 
   const avisar = useCallback((d: Deteccion) => {
     const sonido = SONIDO_POR_ID[d.id];

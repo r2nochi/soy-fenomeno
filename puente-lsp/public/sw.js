@@ -9,7 +9,9 @@ self.addEventListener("notificationclick", (evento) => {
     self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then((ventanas) =>
-        ventanas.length ? ventanas[0].focus() : self.clients.openWindow("/"),
+        ventanas.length
+          ? ventanas[0].focus()
+          : self.clients.openWindow("/herramientas/alerta-visual"),
       ),
   );
 });

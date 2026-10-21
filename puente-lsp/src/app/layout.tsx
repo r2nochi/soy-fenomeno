@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible } from "next/font/google";
 import "./globals.css";
 
@@ -10,9 +10,16 @@ const atkinson = Atkinson_Hyperlegible({
 });
 
 export const metadata: Metadata = {
-  title: "Puente LSP · Intérprete de lengua de señas por videollamada",
+  title: {
+    default: "Puente LSP · Intérprete de lengua de señas por videollamada",
+    template: "%s · Puente LSP",
+  },
   description:
     "Conecta con un intérprete de Lengua de Señas Peruana (LSP) por videollamada. Para personas Sordas, empresas y entidades en Perú.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b4fd1",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
