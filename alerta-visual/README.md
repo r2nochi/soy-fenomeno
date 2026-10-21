@@ -16,6 +16,17 @@ Convierte sonidos importantes en avisos que se ven: alarma de humo o incendio, t
 4. Cada aviso agrupa varias clases de YAMNet y tiene su propio umbral (`src/lib/sonidos.ts`). Para avisar, el sonido tiene que repetirse en ventanas seguidas. Después espera 15 s antes de volver a avisar del mismo sonido.
 5. El aviso ocupa toda la pantalla con color, ícono y hora, y hace vibrar el equipo. Si la pestaña está oculta, también llega una notificación del sistema.
 
+## Subtítulos en vivo
+
+Con la escucha activa, el botón **"💬 Mostrar subtítulos"** abre un panel parecido a Live Transcribe:
+
+- **Voz a texto** en español (Perú) con la transcripción del navegador (Web Speech API, en Chrome o Edge). **Para transcribir, el navegador envía la voz a Google.** Los demás sonidos se siguen analizando en el equipo.
+- **Sonidos dentro del texto**, por ejemplo "(🚨 posible sirena)", "(🐦 pájaros)" o "(🎵 música)". Con menos de 60 % de confianza se dice "posible". Ver `src/lib/etiquetas.ts`.
+- **Franja "Sonidos ahora"** con lo que suena en ese momento.
+- **Responder en voz alta:** lo que escribes lo dice el equipo. Mientras habla, la transcripción se pausa para no copiarse a sí misma.
+- Letra ajustable (A− / A+), pantalla completa, copiar y borrar. El texto no se guarda en ningún lado.
+- Si suena una alarma, el aviso a pantalla completa aparece igual.
+
 El parpadeo es de 1 vez por segundo, por debajo del límite de 3 por segundo de WCAG 2.3.1 (riesgo de crisis fotosensibles). Se puede apagar, y se apaga solo si el sistema tiene activado "reducir movimiento".
 
 ## Correr en local
@@ -31,7 +42,10 @@ El micrófono solo funciona en `localhost` o con HTTPS.
 
 - Una alarma de humo sintética (pitidos de 3,1 kHz) se detecta como "Smoke detector" con 0,50 de confianza y dispara el aviso completo.
 - El silencio no dispara nada.
-- **Falta probar con sonidos reales:** timbres, alarmas y bebés de verdad, para ajustar los umbrales.
+- El patrón real de una alarma de humo (3 pitidos y una pausa) dispara el aviso en unos 2 segundos, con distintos ritmos.
+- Subtítulos probados con un reconocedor de voz simulado: la voz y los sonidos se intercalan bien.
+- **Falta probar con sonidos y voz reales:** timbres, alarmas, bebés y conversaciones de verdad, para ajustar los umbrales.
+- **Por verificar en Android:** si Chrome deja usar a la vez la transcripción de voz y el micrófono de los avisos.
 
 ## Próximos pasos
 

@@ -3,6 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Deteccion } from "@/lib/detector";
 import { SONIDOS, SONIDO_POR_ID, type IdSonido } from "@/lib/sonidos";
+import { Subtitulos } from "./Subtitulos";
+
+type OyentePuntajes = (valores: ArrayLike<number>) => void;
 
 type Estado = "inactivo" | "cargando" | "escuchando" | "error";
 
@@ -73,6 +76,15 @@ export function AlertaApp() {
   const detenerRef = useRef<(() => void) | null>(null);
   const montadoRef = useRef(true);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+  const [subtitulos, setSubtitulos] = useState(false);
+  // Los subtítulos se suscriben a los puntajes sin re-renderizar toda la app.
+  const oyentesRef = useRef(new Set<OyentePuntajes>());
+  const suscribir = useCallback((fn: OyentePuntajes) => {
+    oyentesRef.current.add(fn);
+    return () => {
+      oyentesRef.current.delete(fn);
+    };
+  }, []);
 
   useEffect(() => {
     activosRef.current = activos;
@@ -146,6 +158,7 @@ export function AlertaApp() {
         alDetectar: avisar,
         alNivel: setNivel,
         alFallo,
+        alPuntajes: (v) => oyentesRef.current.forEach((fn) => fn(v)),
       });
       // Si la página se cerró mientras arrancaba, se apaga el micrófono.
       if (!montadoRef.current) {
@@ -229,6 +242,15 @@ export function AlertaApp() {
               La barra se mueve cuando el micrófono capta sonido. Deja esta
               página abierta.
             </p>
+            {!subtitulos && (
+              <button
+                onClick={() => setSubtitulos(true)}
+                className="mb-4 w-full max-w-md rounded-2xl bg-acento px-8 py-5 text-2xl font-bold text-sobre-acento hover:bg-acento-hover"
+              >
+                💬 Mostrar subtítulos
+              </button>
+            )}
+            <br />
             <button
               onClick={detener}
               className="rounded-2xl border-2 border-borde px-8 py-4 text-xl font-bold hover:bg-fondo"
@@ -267,6 +289,10 @@ export function AlertaApp() {
           </p>
         )}
       </section>
+
+      {escuchando && subtitulos && (
+        <Subtitulos suscribir={suscribir} alCerrar={() => setSubtitulos(false)} />
+      )}
 
       <section aria-labelledby="titulo-historial" className="mb-10">
         <h2 id="titulo-historial" className="mb-4 text-2xl font-bold">

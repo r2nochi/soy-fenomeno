@@ -18,7 +18,7 @@ export type Sonido = {
   color: string;
   clases: number[];
   umbral: number;
-  // Ventanas seguidas (de ~0,5 s) que deben superar el umbral para avisar.
+  // Detecciones (una por ventana de ~0,5 s) que deben ocurrir en 3 s para avisar.
   confirmaciones: number;
   urgente: boolean;
   activoPorDefecto: boolean;

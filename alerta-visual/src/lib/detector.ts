@@ -9,6 +9,9 @@ const ESPERA_MS = 15000;
 // Si no llega audio en este tiempo, el micrófono dejó de funcionar.
 const SIN_AUDIO_MS = 4000;
 const FALLOS_MAXIMOS = 3;
+// Las alarmas suenan a intervalos (pitido, silencio, pitido): se cuentan las
+// detecciones dentro de este tiempo, no ventanas seguidas.
+const VENTANA_CONFIRMACION_MS = 3000;
 
 export type Deteccion = { id: IdSonido; confianza: number; hora: Date };
 
@@ -19,6 +22,8 @@ type Opciones = {
   alNivel: (nivel: number) => void;
   // La escucha se detuvo sola: la interfaz debe avisarlo.
   alFallo: (motivo: string) => void;
+  // Puntajes de las 521 clases en cada ventana (los usan los subtítulos).
+  alPuntajes?: (valores: ArrayLike<number>) => void;
 };
 
 let modelo: tf.GraphModel | null = null;
@@ -52,6 +57,7 @@ export async function iniciarDetector({
   alDetectar,
   alNivel,
   alFallo,
+  alPuntajes,
 }: Opciones) {
   // El contexto se crea antes de esperar al modelo: así aprovecha el clic
   // del usuario y el navegador no lo deja suspendido.
@@ -101,7 +107,7 @@ export async function iniciarDetector({
 
   function escuchar(red: tf.GraphModel) {
     const buffer = new Float32Array(VENTANA);
-    const seguidas = new Map<IdSonido, number>();
+    const detecciones = new Map<IdSonido, number[]>();
     const ultimoAviso = new Map<IdSonido, number>();
     let ocupado = false;
     let activo = true;
@@ -136,6 +142,7 @@ export async function iniciarDetector({
         });
         fallos = 0;
         evaluar(valores);
+        if (activo) alPuntajes?.(valores);
       } catch (e) {
         console.error("Error al analizar el audio:", e);
         if (++fallos >= FALLOS_MAXIMOS) {
@@ -153,14 +160,15 @@ export async function iniciarDetector({
       for (const sonido of SONIDOS) {
         if (!habilitados.has(sonido.id)) continue;
         const confianza = Math.max(...sonido.clases.map((c) => valores[c]));
-        if (confianza < sonido.umbral) {
-          seguidas.set(sonido.id, 0);
-          continue;
-        }
-        const n = (seguidas.get(sonido.id) ?? 0) + 1;
-        seguidas.set(sonido.id, n);
+        if (confianza < sonido.umbral) continue;
+        const recientes = (detecciones.get(sonido.id) ?? []).filter(
+          (t) => ahora - t < VENTANA_CONFIRMACION_MS,
+        );
+        recientes.push(ahora);
+        detecciones.set(sonido.id, recientes);
         const reciente = ahora - (ultimoAviso.get(sonido.id) ?? 0) < ESPERA_MS;
-        if (n >= sonido.confirmaciones && !reciente) {
+        if (recientes.length >= sonido.confirmaciones && !reciente) {
+          detecciones.set(sonido.id, []);
           ultimoAviso.set(sonido.id, ahora);
           alDetectar({ id: sonido.id, confianza, hora: new Date() });
         }
