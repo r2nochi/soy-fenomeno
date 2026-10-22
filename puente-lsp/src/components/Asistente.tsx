@@ -173,6 +173,8 @@ export function Asistente() {
                         <Link
                           key={e.href + e.texto}
                           href={e.href}
+                          // Se cierra para que el panel no tape la página nueva.
+                          onClick={() => setAbierto(false)}
                           className="rounded-full bg-accion px-4 py-2 text-base font-bold text-sobre-accion no-underline hover:bg-accion-hover"
                         >
                           {e.texto}

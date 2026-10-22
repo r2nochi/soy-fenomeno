@@ -11,6 +11,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { ARTICULOS } from "@/lib/blog";
+import { CreditoFotos } from "@/components/CreditoFotos";
 import { enlaceWhatsapp, REDES } from "@/lib/sitio";
 import { SONIDO_POR_ID } from "@/lib/sonidos";
 
@@ -272,6 +273,9 @@ export default function Inicio() {
               </li>
             ))}
           </ul>
+          <p className="mt-3 text-right text-base text-suave">
+            <CreditoFotos plural />
+          </p>
         </section>
       )}
 

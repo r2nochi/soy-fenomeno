@@ -32,10 +32,12 @@ export type Portada = {
 };
 
 // Fotos de la colección Disabled And Here (licencia CC BY 4.0), que pide
-// atribución y un enlace a su página.
+// atribución, un enlace a su página y otro a la licencia.
 export const CREDITO_FOTOS = {
-  texto: "Foto: Disabled And Here (CC BY 4.0)",
+  autor: "Disabled And Here",
   url: "https://affecttheverb.com/disabledandhere/",
+  licencia: "CC BY 4.0",
+  urlLicencia: "https://creativecommons.org/licenses/by/4.0/deed.es",
 };
 
 export const ARTICULOS: DatosArticulo[] = [

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CalendarClock, Check, ExternalLink, MapPin } from "lucide-react";
-import type { AreaId, Convocatoria } from "@/lib/trabajos";
+import type { AreaId, Convocatoria } from "@/lib/convocatorias";
 
 const POR_PAGINA = 20;
 

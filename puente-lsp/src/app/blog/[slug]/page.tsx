@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
-import { ARTICULOS, articuloPorSlug, CREDITO_FOTOS, fechaLegible } from "@/lib/blog";
+import { ARTICULOS, articuloPorSlug, fechaLegible } from "@/lib/blog";
+import { CreditoFotos } from "@/components/CreditoFotos";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
 export function generateStaticParams() {
@@ -70,9 +71,7 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
             className="h-auto w-full rounded-[28px]"
           />
           <figcaption className="mt-2 text-right text-base text-suave">
-            <a href={CREDITO_FOTOS.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
-              {CREDITO_FOTOS.texto}
-            </a>
+            <CreditoFotos />
           </figcaption>
         </figure>
 

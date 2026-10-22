@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ARTICULOS, fechaLegible } from "@/lib/blog";
+import { CreditoFotos } from "@/components/CreditoFotos";
 
 export const metadata: Metadata = {
   title: "Blog: tips y guías para la comunidad Sorda",
@@ -76,6 +77,9 @@ export default function Blog() {
           </li>
         ))}
       </ul>
+      <p className="mt-10 text-base text-suave">
+        <CreditoFotos plural />
+      </p>
     </main>
   );
 }
