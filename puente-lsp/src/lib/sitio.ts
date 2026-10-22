@@ -6,7 +6,7 @@ export const URL_SITIO = (
 ).replace(/\/+$/, "");
 
 export const NAVEGACION = [
-  { href: "/interprete", texto: "Pedir intérprete" },
+  { href: "/interprete", texto: "Intérprete LSP" },
   { href: "/herramientas/alerta-visual", texto: "Alerta Visual" },
   { href: "/trabajos", texto: "Trabajos" },
   { href: "/blog", texto: "Blog" },

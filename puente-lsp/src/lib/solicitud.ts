@@ -7,14 +7,14 @@ export const TIPOS_SOLICITANTE = {
 } as const;
 
 export const URGENCIAS = {
-  ahora: "Lo antes posible",
-  fecha: "En una fecha específica",
+  ahora: "Cuando haya un intérprete disponible",
+  fecha: "Para una fecha específica",
 } as const;
 
 export const AMBITOS = {
-  salud: "Salud",
+  salud: "Salud (consultas no urgentes)",
   banco: "Banco o finanzas",
-  legal: "Legal o notaría",
+  legal: "Legal o notaría (no urgente)",
   educacion: "Educación",
   trabajo: "Trabajo o reunión",
   gobierno: "Trámite público",

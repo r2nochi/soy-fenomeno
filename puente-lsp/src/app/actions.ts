@@ -6,7 +6,7 @@ import { z } from "zod";
 import { solicitudSchema, type EstadoFormulario } from "@/lib/solicitud";
 
 const MENSAJE_EXITO =
-  "Recibimos tu solicitud. Te escribimos pronto por WhatsApp o correo para coordinar.";
+  "Ya estás en la lista. Te escribimos por WhatsApp o correo cuando tengamos un intérprete disponible.";
 
 export async function enviarSolicitud(
   _prev: EstadoFormulario,

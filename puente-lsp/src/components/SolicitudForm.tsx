@@ -180,7 +180,7 @@ export function SolicitudForm() {
         <>
           <fieldset>
             <legend className={etiqueta}>
-              ¿Cuándo necesitas al intérprete?
+              ¿Cuándo te gustaría usarlo?
             </legend>
             <div className="grid gap-3 sm:grid-cols-2">
               {Object.entries(URGENCIAS).map(([valor, texto]) => (
@@ -237,6 +237,10 @@ export function SolicitudForm() {
               ))}
             </select>
             <MensajeError id="error-ambito" errores={e.ambito} />
+            <p className="mt-2 text-base text-suave">
+              Para emergencias, citas médicas o temas legales importantes, pide
+              un intérprete certificado: el piloto no puede asegurar uno a tiempo.
+            </p>
           </div>
         </>
       )}
@@ -289,7 +293,7 @@ export function SolicitudForm() {
         disabled={enviando}
         className="w-full rounded-xl bg-accion px-6 py-4 text-xl font-bold text-sobre-accion hover:bg-accion-hover disabled:opacity-60 sm:w-auto"
       >
-        {enviando ? "Enviando…" : "Enviar solicitud"}
+        {enviando ? "Enviando…" : "Anotarme"}
       </button>
     </form>
   );

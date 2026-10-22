@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { BriefcaseBusiness, CalendarClock, ExternalLink, MapPin } from "lucide-react";
-import { convocatoriasDelDia } from "@/lib/trabajos";
+import { BadgeCheck, BriefcaseBusiness, ExternalLink, Landmark } from "lucide-react";
+import { AREAS, convocatoriasDelDia, type AreaId } from "@/lib/trabajos";
+import { ListaTrabajos } from "@/components/ListaTrabajos";
 
 export const metadata: Metadata = {
   title: "Trabajos para personas con discapacidad",
   description:
-    "Ofertas exclusivas para personas con discapacidad en Empleos Perú, convocatorias del día relacionadas con discapacidad, sordera y LSP, y portales de empleo.",
+    "Empleos para personas con discapacidad en el Perú, por área: TI, recursos humanos, administración, salud, atención al público y más. Portales inclusivos y convocatorias del Estado.",
 };
 
 const PASOS_MTPE = [
@@ -16,15 +17,51 @@ const PASOS_MTPE = [
   "Después podrás ver todas las ofertas exclusivas para personas con discapacidad.",
 ];
 
-// Búsquedas en otros portales. Solo enlaces: estos sitios no permiten que otros
-// lean sus avisos de forma automática.
-const PORTALES = [
-  { nombre: "Computrabajo", url: "https://pe.computrabajo.com/trabajo-de-discapacidad" },
-  { nombre: "Bumeran", url: "https://www.bumeran.com.pe/empleos-busqueda-discapacidad.html" },
+// Portales con ofertas pensadas para personas con discapacidad. Solo enlaces:
+// sus términos no permiten copiar los avisos.
+const INCLUSIVOS = [
+  {
+    nombre: "Inclúyeme Perú",
+    texto: "Todas sus ofertas son para personas con discapacidad. Hay de TI, ventas, atención y más.",
+    url: "https://www.incluyeme.com.pe/trabajos/",
+  },
+  {
+    nombre: "Computrabajo",
+    texto: "Busca avisos con la marca «Apto para personas con discapacidad».",
+    url: "https://pe.computrabajo.com/trabajo-de-discapacidad",
+  },
+  {
+    nombre: "Bumeran",
+    texto: "Avisos que mencionan discapacidad en todo el Perú.",
+    url: "https://www.bumeran.com.pe/empleos-busqueda-discapacidad.html",
+  },
+];
+
+// Búsquedas por área en Computrabajo con su filtro "Personas con discapacidad:
+// Sí" (dis=1).
+const BUSQUEDAS = [
+  { nombre: "TI y sistemas", clave: "sistemas" },
+  { nombre: "Programación", clave: "programador" },
+  { nombre: "Recursos humanos", clave: "recursos-humanos" },
+  { nombre: "Contabilidad", clave: "contabilidad" },
+  { nombre: "Administración", clave: "administracion" },
+  { nombre: "Atención al cliente", clave: "atencion-al-cliente" },
+  { nombre: "Almacén y logística", clave: "almacen" },
+  { nombre: "Trabajo remoto", clave: "remoto" },
+];
+
+const OTROS = [
   { nombre: "Indeed", url: "https://pe.indeed.com/jobs?q=discapacidad" },
   { nombre: "LinkedIn", url: "https://www.linkedin.com/jobs/search/?keywords=discapacidad&location=Per%C3%BA" },
   { nombre: "Laborum", url: "https://www.laborum.pe/" },
 ];
+
+const AREAS_FILTRO: { id: AreaId; nombre: string }[] = [
+  ...AREAS.map(({ id, nombre }) => ({ id, nombre })),
+  { id: "lsp", nombre: "Sordera, LSP o discapacidad" },
+];
+
+const enlaceExterno = "inline-flex items-center gap-2 font-bold text-acento underline underline-offset-4";
 
 async function Convocatorias() {
   const { avisos, ok } = await convocatoriasDelDia();
@@ -43,38 +80,11 @@ async function Convocatorias() {
   if (avisos.length === 0) {
     return (
       <p className="rounded-2xl border-2 border-borde/55 bg-superficie p-6 text-xl">
-        Hoy no hay convocatorias nuevas relacionadas. Vuelve mañana.
+        Hoy no hay convocatorias vigentes. Vuelve mañana.
       </p>
     );
   }
-  return (
-    <ul className="divide-y-2 divide-borde/25 rounded-[28px] border-[3px] border-borde/55 bg-superficie">
-      {avisos.map((a) => (
-        <li key={a.url}>
-          <a href={a.url} target="_blank" rel="noopener noreferrer" className="group block p-6 no-underline">
-            <h3 className="text-xl leading-snug font-bold group-hover:underline">
-              {a.titulo}
-              <ExternalLink aria-hidden="true" className="ml-2 inline size-4 text-acento" />
-            </h3>
-            <p className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-lg text-suave">
-              {a.lugar && (
-                <span className="inline-flex items-center gap-2">
-                  <MapPin aria-hidden="true" className="size-5" />
-                  {a.lugar}
-                </span>
-              )}
-              {a.vigencia && (
-                <span className="inline-flex items-center gap-2">
-                  <CalendarClock aria-hidden="true" className="size-5" />
-                  Vigente hasta el {a.vigencia}
-                </span>
-              )}
-            </p>
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
+  return <ListaTrabajos avisos={avisos} areas={AREAS_FILTRO} />;
 }
 
 export default function Trabajos() {
@@ -82,13 +92,62 @@ export default function Trabajos() {
     <main id="contenido" className="mx-auto w-full max-w-5xl flex-1 px-4 py-14 sm:px-8">
       <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">Trabajos</h1>
       <p className="mt-4 max-w-[55ch] text-2xl leading-snug text-suave">
-        Ofertas para personas con discapacidad y convocatorias relacionadas con
-        sordera y LSP en el Perú.
+        Empleos de todas las áreas que aceptan a personas con discapacidad: TI,
+        recursos humanos, administración, salud, atención al público y más.
       </p>
 
-      <section aria-labelledby="titulo-mtpe" className="mt-12 rounded-[28px] bg-accion p-8 text-sobre-accion">
+      <section aria-labelledby="titulo-inclusivos" className="mt-12">
+        <h2 id="titulo-inclusivos" className="text-3xl font-bold">
+          Empleos para personas con discapacidad
+        </h2>
+        <p className="mt-1 max-w-[60ch] text-xl leading-snug text-suave">
+          Empresas privadas que buscan a personas con discapacidad. Las ofertas
+          se ven en cada portal.
+        </p>
+        <ul className="mt-6 grid gap-4 md:grid-cols-3">
+          {INCLUSIVOS.map((p) => (
+            <li key={p.nombre}>
+              <a
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-full flex-col rounded-[28px] border-[3px] border-borde/55 bg-superficie p-6 no-underline hover:border-acento"
+              >
+                <BadgeCheck aria-hidden="true" className="size-9 text-acento" strokeWidth={2.25} />
+                <h3 className="mt-3 text-2xl font-bold group-hover:underline">
+                  {p.nombre}
+                  <ExternalLink aria-hidden="true" className="ml-2 inline size-5 text-acento" />
+                </h3>
+                <p className="mt-2 text-lg leading-snug text-suave">{p.texto}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="mt-10 text-2xl font-bold">Busca por área en Computrabajo</h3>
+        <p className="mt-1 max-w-[60ch] text-lg text-suave">
+          Abre la búsqueda ya filtrada con «Personas con discapacidad: Sí».
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-3">
+          {BUSQUEDAS.map((b) => (
+            <li key={b.clave}>
+              <a
+                href={`https://pe.computrabajo.com/trabajo-de-${b.clave}?dis=1`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border-[3px] border-borde/55 bg-superficie px-5 py-3 text-xl font-bold no-underline hover:border-acento"
+              >
+                <BriefcaseBusiness aria-hidden="true" className="size-5 text-acento" />
+                {b.nombre}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="titulo-mtpe" className="mt-14 rounded-[28px] bg-accion p-8 text-sobre-accion">
         <h2 id="titulo-mtpe" className="text-3xl font-bold">
-          Ofertas exclusivas del Estado (Empleos Perú)
+          Ofertas exclusivas en Empleos Perú
         </h2>
         <p className="mt-2 max-w-[60ch] text-xl leading-snug opacity-90">
           El Ministerio de Trabajo tiene ofertas solo para personas con
@@ -118,12 +177,24 @@ export default function Trabajos() {
         </p>
       </section>
 
-      <section aria-labelledby="titulo-dia" className="mt-14">
-        <h2 id="titulo-dia" className="text-3xl font-bold">Convocatorias del día</h2>
-        <p className="mt-1 max-w-[60ch] text-xl leading-snug text-suave">
-          Convocatorias recientes que mencionan discapacidad, sordera, LSP,
-          intérpretes, CEBE, CONADIS u OMAPED. Se actualiza una vez al día. Lee
-          los requisitos en el aviso original.
+      <section aria-labelledby="titulo-estado" className="mt-14">
+        <h2 id="titulo-estado" className="text-3xl font-bold">Convocatorias del Estado</h2>
+        <div className="mt-4 flex max-w-[65ch] gap-4 rounded-2xl bg-acento-fondo p-5 text-lg leading-snug">
+          <Landmark aria-hidden="true" className="size-8 shrink-0 text-acento" />
+          <p>
+            <strong>Puedes postular a cualquiera.</strong> Por ley, en los
+            concursos públicos, si tienes discapacidad y alcanzas el puntaje
+            mínimo, recibes <strong>15&nbsp;% más de puntaje</strong>. Decláralo
+            al postular y acredítalo con tu certificado de discapacidad o tu
+            carné del CONADIS. Lee siempre los requisitos en el aviso original.{" "}
+            <a href="https://www.leyes.congreso.gob.pe/Documentos/Leyes/29973.pdf" target="_blank" rel="noopener noreferrer" className={enlaceExterno}>
+              Ley 29973, artículo 48
+            </a>
+          </p>
+        </div>
+        <p className="mt-4 max-w-[60ch] text-lg text-suave">
+          Se actualiza una vez al día. Primero aparecen las relacionadas con
+          sordera, LSP o discapacidad.
         </p>
         <div className="mt-6">
           <Suspense
@@ -141,14 +212,15 @@ export default function Trabajos() {
           <a href="https://www.convocatoriasdetrabajo.com/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
             convocatoriasdetrabajo.com
           </a>
-          . Puente LSP no publica ni revisa estas ofertas.
+          . El área se elige por el título del aviso y puede fallar. Puente LSP
+          no publica ni revisa estas ofertas.
         </p>
       </section>
 
       <section aria-labelledby="titulo-portales" className="mt-14">
-        <h2 id="titulo-portales" className="text-3xl font-bold">Busca en otros portales</h2>
+        <h2 id="titulo-portales" className="text-3xl font-bold">Otros portales</h2>
         <ul className="mt-6 flex flex-wrap gap-3">
-          {PORTALES.map((p) => (
+          {OTROS.map((p) => (
             <li key={p.nombre}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border-[3px] border-borde/55 bg-superficie px-5 py-3 text-xl font-bold no-underline hover:border-acento">
                 <BriefcaseBusiness aria-hidden="true" className="size-5 text-acento" />

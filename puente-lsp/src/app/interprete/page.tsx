@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { SolicitudForm } from "@/components/SolicitudForm";
 
 export const metadata: Metadata = {
-  title: "Pedir intérprete de LSP por videollamada",
+  title: "Intérprete de LSP por videollamada: lista de interesados",
   description:
-    "Pide un intérprete de Lengua de Señas Peruana (LSP) por videollamada para tu cita, trámite o reunión. Para personas Sordas, empresas y entidades en Perú.",
+    "Estamos armando una red de intérpretes de Lengua de Señas Peruana (LSP) por videollamada. Anótate en la lista si eres una persona Sorda, una entidad o intérprete.",
 };
 
 const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP;
@@ -14,12 +14,12 @@ const enlaceWhatsapp = whatsapp
 
 const pasos = [
   {
-    titulo: "Pide",
+    titulo: "Te anotas",
     texto: "Llena el formulario o escríbenos por WhatsApp.",
   },
   {
-    titulo: "Te conectamos",
-    texto: "Buscamos un intérprete de LSP disponible y te enviamos un enlace.",
+    titulo: "Te escribimos",
+    texto: "Si hay un intérprete voluntario disponible, coordinamos contigo y te enviamos un enlace.",
   },
   {
     titulo: "Conversa",
@@ -28,11 +28,10 @@ const pasos = [
 ];
 
 const ambitos = [
-  "Citas médicas",
   "Bancos y trámites",
   "Reuniones de trabajo",
+  "Entrevistas de trabajo",
   "Clases y universidades",
-  "Notarías y temas legales",
   "Atención al cliente",
 ];
 
@@ -44,18 +43,18 @@ export default function Interprete() {
         <section className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-14 md:grid-cols-2">
           <div>
             <h1 className="mb-5 text-4xl font-bold leading-tight sm:text-5xl">
-              Un intérprete de LSP por videollamada, cuando lo necesitas.
+              Estamos armando una red de intérpretes de LSP por videollamada.
             </h1>
             <p className="mb-8 text-xl text-suave">
-              Para personas Sordas, empresas y entidades en Perú. Te conectamos
-              con intérpretes de Lengua de Señas Peruana.
+              Todavía es un piloto gratuito: aún no hay intérpretes disponibles
+              todo el tiempo. Anótate y te avisamos cuando podamos ayudarte.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href="#solicitar"
                 className="rounded-xl bg-accion px-6 py-4 text-center text-xl font-bold text-sobre-accion hover:bg-accion-hover"
               >
-                Pedir intérprete
+                Anotarme en la lista
               </a>
               {enlaceWhatsapp && (
                 <a
@@ -99,7 +98,7 @@ export default function Interprete() {
               ))}
             </ol>
             <h3 className="mb-4 mt-12 text-2xl font-bold">
-              Te ayudamos en:
+              Para qué sirve el piloto:
             </h3>
             <ul className="flex flex-wrap gap-3">
               {ambitos.map((a) => (
@@ -111,6 +110,11 @@ export default function Interprete() {
                 </li>
               ))}
             </ul>
+            <p className="mt-6 max-w-3xl rounded-2xl border-2 border-borde/55 bg-superficie p-5 text-lg">
+              <strong>Para emergencias, citas médicas o temas legales</strong>,
+              pide un intérprete certificado. Este piloto todavía no puede
+              asegurar uno a tiempo.
+            </p>
           </div>
         </section>
 
@@ -121,14 +125,14 @@ export default function Interprete() {
           <div className="grid gap-8 md:grid-cols-2">
             <p className="text-xl">
               La Ley 29535 reconoce la Lengua de Señas Peruana y promueve que las
-              entidades que atienden al público faciliten intérpretes. Con Puente
-              LSP atiendes a tus clientes Sordos sin tener un intérprete fijo.
+              entidades que atienden al público faciliten intérpretes. Buscamos
+              entidades que quieran probar la atención por videollamada con
+              nosotros.
             </p>
             <ul className="space-y-3 text-lg">
-              <li>✓ Pagas solo por el tiempo que usas.</li>
-              <li>✓ Planes mensuales para sedes con mucha atención.</li>
-              <li>✓ Intérpretes con experiencia en tu sector.</li>
-              <li>✓ Reportes de los servicios atendidos.</li>
+              <li>✓ Piloto gratuito, sin contrato.</li>
+              <li>✓ Nos ayudas a medir cuánta atención en LSP necesitas.</li>
+              <li>✓ Aún no ofrecemos un servicio pagado.</li>
             </ul>
           </div>
         </section>
@@ -137,9 +141,9 @@ export default function Interprete() {
           <div className="mx-auto max-w-5xl px-4">
             <h2 className="mb-5 text-3xl font-bold">¿Eres intérprete de LSP?</h2>
             <p className="max-w-3xl text-xl">
-              Únete a la red. Atiende servicios por videollamada desde donde
-              estés y recibe más solicitudes. Elige la opción «Soy intérprete de
-              LSP» en el formulario.
+              Súmate a la red como voluntario o voluntaria del piloto y atiende
+              por videollamada desde donde estés. Elige la opción «Soy
+              intérprete de LSP» en el formulario.
             </p>
           </div>
         </section>
@@ -150,10 +154,11 @@ export default function Interprete() {
           className="mx-auto max-w-3xl px-4 py-14"
         >
           <h2 id="titulo-solicitar" className="mb-2 text-3xl font-bold">
-            Pedir intérprete
+            Anotarme en la lista
           </h2>
           <p className="mb-8 text-xl text-suave">
-            Llena el formulario. Te escribimos para coordinar.
+            No es una reserva confirmada. Te escribimos si encontramos un
+            intérprete disponible.
           </p>
           <SolicitudForm />
         </section>

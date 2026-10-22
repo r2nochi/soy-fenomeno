@@ -21,23 +21,23 @@ export const RESPUESTAS: Respuesta[] = [
     pregunta: "¿Cómo pido un intérprete de LSP?",
     claves: ["interpret", "videollamada", "cita", "tramite", "traduc"],
     lineas: [
-      "Puedes pedir un intérprete de LSP por videollamada. Son 3 pasos:",
-      "- Pides: llenas el formulario o nos escribes por WhatsApp.",
-      "- Te conectamos: buscamos un intérprete disponible y te enviamos un enlace.",
+      "Estamos armando una red de intérpretes de LSP por videollamada. Es un piloto gratuito y aún no hay intérpretes todo el tiempo.",
+      "- Te anotas: llenas el formulario o nos escribes por WhatsApp.",
+      "- Te escribimos: si hay un intérprete voluntario disponible, coordinamos y te enviamos un enlace.",
       "- Conversas: entras a la videollamada y el intérprete traduce entre LSP y español.",
-      "Sirve para citas médicas, bancos, trámites, trabajo, clases y más.",
+      "Para emergencias, citas médicas o temas legales, pide un intérprete certificado.",
     ],
-    enlaces: [{ texto: "Pedir intérprete", href: "/interprete" }],
+    enlaces: [{ texto: "Anotarme en la lista", href: "/interprete" }],
   },
   {
     id: "empresas",
     pregunta: "Tengo una empresa, ¿cómo atiendo a clientes Sordos?",
     claves: ["empresa", "entidad", "negocio", "cliente", "atencion", "precio", "costo", "cuesta", "pago", "plan", "sede"],
     lineas: [
-      "Con Puente LSP atiendes a tus clientes Sordos sin tener un intérprete fijo.",
-      "- Pagas solo por el tiempo que usas.",
-      "- Hay planes mensuales para sedes con mucha atención.",
-      "Para saber el precio de tu caso, llena el formulario y te escribimos.",
+      "Buscamos entidades que quieran probar la atención a clientes Sordos por videollamada.",
+      "- Es un piloto gratuito, sin contrato.",
+      "- Todavía no ofrecemos un servicio pagado.",
+      "Si te interesa, llena el formulario y te escribimos.",
     ],
     enlaces: [{ texto: "Ver la sección para empresas", href: "/interprete" }],
   },
@@ -46,7 +46,7 @@ export const RESPUESTAS: Respuesta[] = [
     pregunta: "Soy intérprete, ¿cómo me uno?",
     claves: ["soy interpret", "unir", "trabajar como"],
     lineas: [
-      "Únete a la red de intérpretes de Puente LSP. Atiendes servicios por videollamada desde donde estés.",
+      "Súmate como voluntario o voluntaria al piloto de intérpretes de Puente LSP. Atiendes por videollamada desde donde estés. Por ahora no es un trabajo pagado.",
       "En el formulario, elige la opción «Soy intérprete de LSP».",
     ],
     enlaces: [{ texto: "Ir al formulario", href: "/interprete#solicitar" }],
@@ -84,11 +84,11 @@ export const RESPUESTAS: Respuesta[] = [
       "- Mírala de frente, habla normal y no te tapes la boca.",
       "- No todas las personas Sordas leen los labios: pregunta.",
       "- Escribir también vale: en el celular o en un papel, corto y simple.",
-      "- Para algo importante, pide un intérprete de LSP.",
+      "- Para algo importante, busca un intérprete de LSP certificado.",
     ],
     enlaces: [
       { texto: "Leer la guía completa", href: "/blog/como-hablar-con-una-persona-sorda" },
-      { texto: "Pedir intérprete", href: "/interprete" },
+      { texto: "Piloto de intérpretes", href: "/interprete" },
     ],
   },
   {
@@ -135,12 +135,12 @@ export const RESPUESTAS: Respuesta[] = [
   {
     id: "trabajo",
     pregunta: "¿Dónde busco trabajo?",
-    claves: ["trabajo", "empleo", "chamba", "convocatoria", "oferta", "postular", "cuota", "laboral", "cv"],
+    claves: ["trabajo", "empleo", "chamba", "convocatoria", "oferta", "postular", "cuota", "laboral", "cv", "puesto", "vacante", "recursos humanos", "rrhh"],
     lineas: [
-      "En la página de trabajos tienes:",
-      "- Cómo ver las ofertas exclusivas para personas con discapacidad en Empleos Perú.",
-      "- Convocatorias del día sobre discapacidad, sordera y LSP.",
-      "- Enlaces a otros portales de empleo.",
+      "En la página de trabajos tienes empleos de todas las áreas: TI, recursos humanos, administración, salud y más.",
+      "- Portales con ofertas para personas con discapacidad, como Inclúyeme y Computrabajo.",
+      "- Ofertas exclusivas en Empleos Perú.",
+      "- Convocatorias del Estado por área. Por ley, con discapacidad recibes 15 % más de puntaje.",
     ],
     enlaces: [{ texto: "Ver trabajos", href: "/trabajos" }],
   },
@@ -200,7 +200,7 @@ export const RESPUESTAS: Respuesta[] = [
     claves: ["puente", "quienes son", "que es esto", "que hacen", "sitio", "pagina", "gratis"],
     lineas: [
       "Puente LSP es un sitio peruano con herramientas para la comunidad Sorda:",
-      "- Pedir intérprete de LSP por videollamada.",
+      "- Un piloto de intérpretes de LSP por videollamada.",
       "- Alerta Visual y subtítulos en vivo, gratis.",
       "- Trabajos, un directorio de la comunidad y un blog.",
     ],
@@ -272,7 +272,9 @@ const orden = (r: Respuesta) => PRIORIDAD.indexOf(r.id);
 
 export function responder(pregunta: string): { respuesta: Respuesta; relacionadas: Respuesta[] } {
   const texto = normalizar(pregunta);
-  const ordenadas = RESPUESTAS.map((r) => ({ r, p: puntaje(texto, r) }))
+  // Quien busca trabajo nombra áreas ("atención al cliente") que también son
+  // claves de empresas; si habla de trabajo, eso pesa más.
+  const ordenadas = RESPUESTAS.map((r) => ({ r, p: puntaje(texto, r) * (r.id === "trabajo" ? 3 : 1) }))
     .filter((x) => x.p > 0)
     .sort((a, b) => b.p - a.p || orden(a.r) - orden(b.r));
 

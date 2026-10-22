@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s · Puente LSP",
   },
   description:
-    "Pide un intérprete de Lengua de Señas Peruana (LSP), convierte los sonidos en avisos visuales y lee tips para la comunidad Sorda. Gratis y en español.",
+    "Convierte los sonidos en avisos visuales, encuentra trabajos para personas con discapacidad y lee tips para la comunidad Sorda. Gratis y en español.",
 };
 
 export const viewport: Viewport = {

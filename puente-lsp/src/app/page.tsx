@@ -33,22 +33,22 @@ const MUESTRA = [
 // Un aviso real de la herramienta cuyo color no compite con el azul de acción.
 const AVISO_EJEMPLO = SONIDO_POR_ID.bebe;
 
-const PASOS = ["Pides", "Te conectamos", "Conversas"];
+const PASOS = ["Te anotas", "Te escribimos", "Conversas"];
 
 const PARA_QUIEN = [
   {
     Icono: HandHelping,
     titulo: "Si eres una persona Sorda",
     texto:
-      "Pide un intérprete para tu cita, trámite o reunión, y usa Alerta Visual para enterarte de lo que suena a tu alrededor.",
+      "Anótate en el piloto de intérpretes por videollamada y usa Alerta Visual para enterarte de lo que suena a tu alrededor.",
     href: "/interprete",
-    accion: "Pedir intérprete",
+    accion: "Anotarme",
   },
   {
     Icono: Building2,
     titulo: "Si representas una empresa o entidad",
     texto:
-      "Atiende a tus clientes Sordos con un intérprete por videollamada, sin tener uno fijo. La Ley 29535 promueve que las entidades faciliten intérpretes de LSP.",
+      "Prueba gratis la atención a clientes Sordos por videollamada en nuestro piloto. La Ley 29535 promueve que las entidades faciliten intérpretes de LSP.",
     href: "/blog/interpretes-de-lsp-lo-que-dice-la-ley",
     accion: "Qué dice la ley",
   },
@@ -56,7 +56,7 @@ const PARA_QUIEN = [
     Icono: Languages,
     titulo: "Si eres intérprete de LSP",
     texto:
-      "Súmate a la red y atiende servicios por videollamada desde donde estés.",
+      "Súmate como voluntario o voluntaria al piloto y atiende por videollamada desde donde estés.",
     href: "/interprete#interpretes",
     accion: "Unirme a la red",
   },
@@ -98,10 +98,10 @@ export default function Inicio() {
           >
             <HandHelping aria-hidden="true" className="size-14" strokeWidth={2} />
             <h2 className="mt-6 text-4xl leading-tight font-bold">
-              Pedir intérprete LSP
+              Intérprete LSP por videollamada
             </h2>
             <p className="mt-3 max-w-[30ch] text-xl leading-snug opacity-90">
-              Por videollamada, para tu cita médica, trámite o reunión.
+              Estamos armando la red. Anótate en el piloto gratuito.
             </p>
             <ol className="mt-8 space-y-3 text-xl font-bold">
               {PASOS.map((paso, i) => (
@@ -117,7 +117,7 @@ export default function Inicio() {
               ))}
             </ol>
             <span className="mt-10 inline-flex items-center gap-3 self-start rounded-2xl bg-white px-6 py-4 text-xl font-bold text-accion lg:mt-auto">
-              Pedir intérprete
+              Anotarme
               <ArrowRight
                 aria-hidden="true"
                 className="size-6 transition-transform group-hover:translate-x-1"
