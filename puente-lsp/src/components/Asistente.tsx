@@ -3,12 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, SendHorizontal, X } from "lucide-react";
-import { RESPUESTAS, responder, type Respuesta } from "@/lib/respuestas";
+import { SUGERIDAS, responder, type Respuesta } from "@/lib/respuestas";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
-const SUGERENCIAS = RESPUESTAS.filter((r) =>
-  ["interprete", "hablar", "alerta", "trabajo"].includes(r.id),
-);
 
 // Temas en los que conviene ofrecer hablar con una persona.
 const CON_WHATSAPP = new Set(["no-entiendo", "colaborar", "empresas"]);
@@ -99,8 +96,9 @@ export function Asistente() {
     return () => document.removeEventListener("keydown", alPulsar);
   }, [abierto]);
 
+  // Lleva a la vista el inicio de la última respuesta, no el final de la lista.
   useEffect(() => {
-    listaRef.current?.scrollTo({ top: listaRef.current.scrollHeight });
+    listaRef.current?.querySelector("[data-ultima]")?.scrollIntoView({ block: "start" });
   }, [mensajes]);
 
   function agregar(texto: string, respuesta: Respuesta, relacionadas: Respuesta[]) {
@@ -123,7 +121,7 @@ export function Asistente() {
 
   // Para lectores de pantalla y braille: se anuncia la última respuesta.
   const ultima = mensajes.at(-1);
-  const anuncio = ultima?.rol === "puente" ? `Puente: ${ultima.respuesta.lineas.join(" ")}` : "";
+  const anuncio = ultima?.rol === "puente" ? `Puente: ${ultima.respuesta.lineas.map((l) => l.replace(/^- /, "")).join(" ")}` : "";
   const whatsapp = enlaceWhatsapp("Hola, tengo una pregunta sobre Puente LSP.");
 
   return (
@@ -154,7 +152,7 @@ export function Asistente() {
                   reemplaza a una persona.
                 </p>
                 <div className="mt-4">
-                  <Preguntas lista={SUGERENCIAS} alElegir={elegir} />
+                  <Preguntas lista={SUGERIDAS} alElegir={elegir} />
                 </div>
               </div>
             )}
@@ -166,7 +164,7 @@ export function Asistente() {
                   {m.texto}
                 </div>
               ) : (
-                <div key={m.id} className="mr-4 space-y-2">
+                <div key={m.id} data-ultima={m === ultima || undefined} className="mr-4 scroll-mt-4 space-y-2">
                   <span className="sr-only">Puente:</span>
                   <Lineas lineas={m.respuesta.lineas} />
                   {(!!m.respuesta.enlaces?.length || (!!whatsapp && CON_WHATSAPP.has(m.respuesta.id))) && (

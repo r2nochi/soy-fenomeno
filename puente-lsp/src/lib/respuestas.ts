@@ -242,6 +242,11 @@ export const NO_ENTIENDO: Respuesta = {
   ],
 };
 
+// Preguntas que se ofrecen al abrir el panel o cuando no hay respuesta.
+export const SUGERIDAS = ["interprete", "hablar", "alerta", "trabajo"].map(
+  (id) => RESPUESTAS.find((r) => r.id === id)!,
+);
+
 // Sin tildes, en minúsculas y sin signos: "¿Intérprete?" → "interprete".
 export const normalizar = (t: string) =>
   ` ${t
@@ -272,9 +277,9 @@ export function responder(pregunta: string): { respuesta: Respuesta; relacionada
     .sort((a, b) => b.p - a.p || orden(a.r) - orden(b.r));
 
   if (ordenadas.length === 0) {
-    if (/ (hola|buenas|buenos|hey|saludos) /.test(texto)) return { respuesta: SALUDO, relacionadas: RESPUESTAS.slice(0, 3) };
+    if (/ (hola|buenas|buenos|hey|saludos) /.test(texto)) return { respuesta: SALUDO, relacionadas: SUGERIDAS };
     if (/ (gracias|grax|genial|ok|listo) /.test(texto)) return { respuesta: GRACIAS, relacionadas: [] };
-    return { respuesta: NO_ENTIENDO, relacionadas: RESPUESTAS.slice(0, 4) };
+    return { respuesta: NO_ENTIENDO, relacionadas: SUGERIDAS };
   }
   return {
     respuesta: ordenadas[0].r,
