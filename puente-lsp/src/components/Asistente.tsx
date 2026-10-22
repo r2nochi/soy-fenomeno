@@ -29,9 +29,12 @@ function Personaje({ className = "" }: { className?: string }) {
   );
 }
 
-// Convierte enlaces [texto](/ruta) y rutas sueltas del sitio en enlaces reales.
+// Convierte enlaces [texto](/ruta) y rutas sueltas del sitio en enlaces
+// internos. Solo rutas del propio sitio: un enlace externo inventado por la IA
+// queda como texto.
 const PATRON =
-  /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^\s)]+)\)|(\/(?:interprete|herramientas\/alerta-visual|blog)(?:\/[\w-]+)*)/g;
+  /\[([^\]]+)\]\(([^\s)]+)\)|(?<=^|[\s(])(\/(?:interprete|herramientas\/alerta-visual|trabajos|comunidad|blog)(?:\/[\w-]+)*)(?![\w/-])/g;
+const INTERNA = /^\/(?![/\\])/;
 
 function conEnlaces(texto: string): ReactNode[] {
   const partes: ReactNode[] = [];
@@ -40,16 +43,13 @@ function conEnlaces(texto: string): ReactNode[] {
     if (m.index > ultimo) partes.push(texto.slice(ultimo, m.index));
     const href = m[2] ?? m[3];
     const etiqueta = m[1] ?? m[3];
-    const clase = "font-bold text-acento underline underline-offset-4";
     partes.push(
-      href.startsWith("/") ? (
-        <Link key={m.index} href={href} className={clase}>
+      INTERNA.test(href) ? (
+        <Link key={m.index} href={href} className="font-bold text-acento underline underline-offset-4">
           {etiqueta}
         </Link>
       ) : (
-        <a key={m.index} href={href} target="_blank" rel="noopener noreferrer" className={clase}>
-          {etiqueta}
-        </a>
+        etiqueta
       ),
     );
     ultimo = m.index + m[0].length;
@@ -85,11 +85,40 @@ export function Asistente() {
   });
   const entradaRef = useRef<HTMLTextAreaElement>(null);
   const listaRef = useRef<HTMLDivElement>(null);
+  const botonRef = useRef<HTMLButtonElement>(null);
   const ocupado = status === "submitted" || status === "streaming";
+
+  function cerrar() {
+    setAbierto(false);
+    botonRef.current?.focus();
+  }
 
   useEffect(() => {
     if (abierto) entradaRef.current?.focus();
   }, [abierto]);
+
+  // Escape cierra el panel aunque el foco esté fuera de él.
+  useEffect(() => {
+    if (!abierto) return;
+    const alPulsar = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setAbierto(false);
+        botonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", alPulsar);
+    return () => document.removeEventListener("keydown", alPulsar);
+  }, [abierto]);
+
+  // Para lectores de pantalla y braille: se anuncia la respuesta completa, no
+  // cada fragmento mientras llega.
+  const ultima = messages.at(-1);
+  const anuncio =
+    status === "submitted"
+      ? "Puente está escribiendo…"
+      : status === "ready" && ultima?.role === "assistant"
+        ? `Puente: ${ultima.parts.map((p) => (p.type === "text" ? p.text : "")).join(" ")}`
+        : "";
 
   useEffect(() => {
     listaRef.current?.scrollTo({ top: listaRef.current.scrollHeight });
@@ -108,7 +137,6 @@ export function Asistente() {
         <section
           role="dialog"
           aria-label="Asistente Puente"
-          onKeyDown={(e) => e.key === "Escape" && setAbierto(false)}
           className="flex h-[min(36rem,calc(100vh-7rem))] w-[min(26rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[28px] border-[3px] border-borde/55 bg-superficie shadow-[0_24px_60px_-20px_rgb(15_23_41/0.5)]"
         >
           <header className="flex items-center gap-3 bg-accion px-5 py-4 text-sobre-accion">
@@ -118,8 +146,8 @@ export function Asistente() {
               <p className="text-base opacity-85">Respondo por escrito, en español sencillo.</p>
             </div>
             <button
-              onClick={() => setAbierto(false)}
-              aria-label="Cerrar el asistente"
+              onClick={cerrar}
+              aria-label="Cerrar el panel"
               className="rounded-xl p-2 hover:bg-white/15"
             >
               <X aria-hidden="true" className="size-6" />
@@ -170,7 +198,7 @@ export function Asistente() {
             ))}
 
             {status === "submitted" && (
-              <p className="text-suave" role="status">
+              <p className="text-suave" aria-hidden="true">
                 Puente está escribiendo…
               </p>
             )}
@@ -180,6 +208,9 @@ export function Asistente() {
               </p>
             )}
           </div>
+          <p role="status" className="sr-only">
+            {anuncio}
+          </p>
 
           <form
             onSubmit={(e) => {
@@ -232,9 +263,9 @@ export function Asistente() {
       )}
 
       <button
-        onClick={() => setAbierto((a) => !a)}
+        ref={botonRef}
+        onClick={() => (abierto ? cerrar() : setAbierto(true))}
         aria-expanded={abierto}
-        aria-label={abierto ? "Cerrar el asistente" : "Abrir el asistente Puente"}
         className="flex items-center gap-3 rounded-full bg-accion py-2 pr-5 pl-2 text-lg font-bold text-sobre-accion shadow-[0_14px_30px_-12px_rgb(11_79_209/0.7)] hover:bg-accion-hover"
       >
         <Personaje className="size-11" />

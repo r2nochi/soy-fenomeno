@@ -30,7 +30,7 @@ export default function Blog() {
             alt=""
             width={1600}
             height={1066}
-            priority
+            preload
             sizes="(min-width: 768px) 36rem, 100vw"
             className="h-full w-full object-cover md:order-2"
           />

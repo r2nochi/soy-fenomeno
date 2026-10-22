@@ -16,8 +16,8 @@ const PALABRAS = [
   /\bsord[oa]s?\b/,
   /\bseñas\b/,
   /\blengua de senas\b/,
-  /\bint[eé]rpretes?\b/,
-  /\binclusi[oó]n\b/,
+  /\bint[eé]rpretes? de (?:lengua de )?señas\b/,
+  /\binclusi[oó]n (?:laboral|educativa)\b/,
   /\bcebe\b/,
   /\bconadis\b/,
   /\bomaped\b/,
@@ -36,6 +36,8 @@ const entidades = (t: string) =>
     .replace(/&quot;/g, '"')
     .replace(/&#0?39;/g, "'")
     .replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
     .replace(/\s+/g, " ")
     .trim();
 
@@ -68,21 +70,44 @@ export const esRelacionada = (c: Convocatoria) => {
   return PALABRAS.some((p) => p.test(t));
 };
 
-export async function convocatoriasDelDia(): Promise<{
-  avisos: Convocatoria[];
-  ok: boolean;
-}> {
-  "use cache";
-  cacheLife("days");
+// "Vigente hasta el DD/MM/AAAA": se descartan las que ya vencieron.
+const vigente = (c: Convocatoria, hoy: string) => {
+  const [d, m, a] = c.vigencia?.split("/") ?? [];
+  return !a || `${a}-${m.padStart(2, "0")}-${d.padStart(2, "0")}` >= hoy;
+};
+
+async function leerListado() {
   try {
     const r = await fetch(LISTADO, {
       headers: { "User-Agent": "PuenteLSP/1.0 (+https://puente-lsp.vercel.app/trabajos)" },
       signal: AbortSignal.timeout(15000),
     });
-    if (!r.ok) return { avisos: [], ok: false };
-    const avisos = extraerConvocatorias(await r.text()).filter(esRelacionada);
-    return { avisos: avisos.slice(0, 30), ok: true };
+    if (!r.ok) return null;
+    const todas = extraerConvocatorias(await r.text());
+    // Cero avisos significa que el sitio cambió su HTML, no que no haya ofertas.
+    if (todas.length === 0) {
+      console.error("trabajos: el listado no tiene avisos reconocibles");
+      return null;
+    }
+    return todas;
   } catch {
+    return null;
+  }
+}
+
+export async function convocatoriasDelDia(): Promise<{
+  avisos: Convocatoria[];
+  ok: boolean;
+}> {
+  "use cache";
+  const todas = await leerListado();
+  // Si falla, se reintenta pronto en vez de mostrar el error todo el día.
+  if (!todas) {
+    cacheLife("minutes");
     return { avisos: [], ok: false };
   }
+  cacheLife("days");
+  const hoy = new Date().toLocaleDateString("en-CA", { timeZone: "America/Lima" });
+  const avisos = todas.filter((c) => esRelacionada(c) && vigente(c, hoy));
+  return { avisos: avisos.slice(0, 30), ok: true };
 }

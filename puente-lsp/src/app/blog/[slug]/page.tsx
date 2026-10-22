@@ -65,7 +65,7 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
             alt={datos.portada.alt}
             width={1600}
             height={1066}
-            priority
+            preload
             sizes="(min-width: 768px) 44rem, 100vw"
             className="h-auto w-full rounded-[28px]"
           />
