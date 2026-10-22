@@ -19,7 +19,7 @@ export const RESPUESTAS: Respuesta[] = [
   {
     id: "interprete",
     pregunta: "¿Cómo pido un intérprete de LSP?",
-    claves: ["interpret", "videollamada", "cita", "tramite", "traduc"],
+    claves: ["interpret", "videollamada", "cita", "tramite", "traduc", "piloto", "anotar", "solicitud"],
     lineas: [
       "Estamos armando una red de intérpretes de LSP por videollamada. Es un piloto gratuito y aún no hay intérpretes todo el tiempo.",
       "- Te anotas: llenas el formulario o nos escribes por WhatsApp.",
@@ -38,8 +38,12 @@ export const RESPUESTAS: Respuesta[] = [
       "- Es un piloto gratuito, sin contrato.",
       "- Todavía no ofrecemos un servicio pagado.",
       "Si te interesa, llena el formulario y te escribimos.",
+      "También puedes pedir gratis el Sello Puente: un afiche con QR para conversar con clientes Sordos.",
     ],
-    enlaces: [{ texto: "Ver la sección para empresas", href: "/interprete" }],
+    enlaces: [
+      { texto: "Pedir el sello", href: "/sello" },
+      { texto: "Ver el piloto", href: "/interprete" },
+    ],
   },
   {
     id: "ser-interprete",
@@ -66,7 +70,7 @@ export const RESPUESTAS: Respuesta[] = [
   {
     id: "subtitulos",
     pregunta: "¿Cómo uso los subtítulos en vivo?",
-    claves: ["subtitul", "transcri", "voz", "dictado", "conversacion", "texto en vivo", "caption"],
+    claves: ["subtitul", "transcri", "voz", "dictado", "texto en vivo", "caption"],
     lineas: [
       "Dentro de Alerta Visual hay subtítulos en vivo: lo que la gente dice aparece escrito en la pantalla.",
       "También marca sonidos entre paréntesis, por ejemplo «(posible sirena)».",
@@ -88,7 +92,7 @@ export const RESPUESTAS: Respuesta[] = [
     ],
     enlaces: [
       { texto: "Leer la guía completa", href: "/blog/como-hablar-con-una-persona-sorda" },
-      { texto: "Piloto de intérpretes", href: "/interprete" },
+      { texto: "Conversar con el celular", href: "/herramientas/conversacion" },
     ],
   },
   {
@@ -105,7 +109,7 @@ export const RESPUESTAS: Respuesta[] = [
   {
     id: "aprender",
     pregunta: "¿Dónde aprendo LSP?",
-    claves: ["aprend", "curso", "clase", "estudiar", "ensenar", "beca"],
+    claves: ["aprend", "curso", "clase", "estudiar", "ensena", "beca"],
     lineas: [
       "En nuestro directorio hay cursos y materiales de LSP, por ejemplo el curso de Becas Grupo Romero y la guía del Ministerio de Educación.",
       "Lo mejor es aprender con personas Sordas: ellas son quienes mejor conocen su lengua.",
@@ -156,6 +160,7 @@ export const RESPUESTAS: Respuesta[] = [
     enlaces: [
       { texto: "Leer: lo que dice la ley", href: "/blog/interpretes-de-lsp-lo-que-dice-la-ley" },
       { texto: "Leer: la reforma de la Ley 29535", href: "/blog/reforma-de-la-ley-29535" },
+      { texto: "Armar una carta para pedir intérprete", href: "/herramientas/carta" },
     ],
   },
   {
@@ -167,6 +172,62 @@ export const RESPUESTAS: Respuesta[] = [
       "Los números de emergencia del Perú son llamadas de voz: 105 Policía, 116 Bomberos, 106 SAMU. Pide a alguien que llame por ti, o escribe a un familiar o vecino para que llame.",
       "Alerta Visual no reemplaza una alarma de incendio.",
     ],
+    enlaces: [{ texto: "Hacer mi tarjeta de emergencia", href: "/herramientas/tarjeta" }],
+  },
+  {
+    id: "conversacion",
+    pregunta: "¿Cómo converso con alguien que no sabe LSP?",
+    claves: ["conversacion", "conversar con", "cara a cara", "mostrador", "ventanilla", "no sabe lsp", "no sabe senas", "escribir en el celular", "pantalla partida"],
+    lineas: [
+      "Usa la conversación cara a cara: pones el celular en la mesa, entre las dos personas.",
+      "- Tú escribes o tocas una frase lista, y la otra persona la lee en grande.",
+      "- La otra persona habla, y su voz aparece en texto para ti.",
+      "Es gratis. Funciona mejor en Chrome o Edge.",
+    ],
+    enlaces: [{ texto: "Abrir la conversación", href: "/herramientas/conversacion" }],
+  },
+  {
+    id: "tarjeta",
+    pregunta: "¿Cómo hago mi tarjeta de emergencia?",
+    claves: ["tarjeta de emergencia", "mi tarjeta de emergencia", "hacer mi tarjeta", "carne de emergencia", "contacto de emergencia", "tipo de sangre"],
+    lineas: [
+      "Con Mi tarjeta de emergencia muestras en un toque que eres Sordo/a, cómo comunicarse contigo y a quién llamar.",
+      "Tus datos se guardan solo en tu celular. Ábrela una vez con internet y luego funciona sin señal.",
+      "En una emergencia, los números del Perú son 105 Policía, 116 Bomberos y 106 SAMU (solo en algunas regiones).",
+    ],
+    enlaces: [{ texto: "Hacer mi tarjeta", href: "/herramientas/tarjeta" }],
+  },
+  {
+    id: "carta",
+    pregunta: "¿Cómo pido un intérprete a una entidad?",
+    claves: ["carta", "pedir interprete", "pido un interprete a", "solicitar interprete", "a una entidad", "exigir interprete"],
+    lineas: [
+      "Puedes armar una carta formal para pedir un intérprete de LSP a un hospital, municipalidad, comisaría u otra entidad.",
+      "La carta cita la ley. Luego la copias, la imprimes o la envías por WhatsApp o correo.",
+      "Es un modelo: no reemplaza la asesoría de un abogado.",
+    ],
+    enlaces: [{ texto: "Armar mi carta", href: "/herramientas/carta" }],
+  },
+  {
+    id: "lugares",
+    pregunta: "¿Dónde atienden bien a personas Sordas?",
+    claves: ["lugares accesibles", "lugar accesible", "donde atienden", "atienden bien", "recomendar un lugar", "recomienda un lugar"],
+    lineas: [
+      "En Lugares accesibles la comunidad cuenta dónde la atendieron bien: personal que sabe LSP, intérprete o paciencia para escribir.",
+      "Tú también puedes recomendar un lugar. Lo revisamos antes de publicarlo.",
+    ],
+    enlaces: [{ texto: "Ver lugares", href: "/lugares" }],
+  },
+  {
+    id: "sello",
+    pregunta: "¿Qué es el Sello Puente?",
+    claves: ["sello", "afiche", "qr", "codigo qr", "distintivo"],
+    lineas: [
+      "El Sello Puente es gratis para negocios y entidades. Recibes un afiche con un código QR para tu mostrador.",
+      "El cliente Sordo escanea el QR y conversa con tu equipo desde su celular, con frases de tu rubro.",
+      "Es un compromiso de buena atención, no una certificación oficial.",
+    ],
+    enlaces: [{ texto: "Pedir el sello", href: "/sello" }],
   },
   {
     id: "cifras",
@@ -201,6 +262,8 @@ export const RESPUESTAS: Respuesta[] = [
     lineas: [
       "Puente LSP es un sitio peruano con herramientas para la comunidad Sorda:",
       "- Un piloto de intérpretes de LSP por videollamada.",
+      "- Conversación cara a cara, tarjeta de emergencia y una carta para pedir intérprete.",
+      "- Un mapa de lugares que atienden bien y un sello gratis para negocios.",
       "- Alerta Visual y subtítulos en vivo, gratis.",
       "- Trabajos, un directorio de la comunidad y un blog.",
     ],
@@ -264,8 +327,8 @@ const puntaje = (texto: string, r: Respuesta) =>
 // En un empate gana el tema más concreto: "aprender lengua de señas" es sobre
 // cursos, no sobre qué es la LSP.
 const PRIORIDAD = [
-  "emergencia", "ser-interprete", "interprete", "empresas", "alerta", "subtitulos",
-  "trabajo", "aprender", "senas", "ley", "cifras", "dia", "hablar", "comunidad",
+  "emergencia", "tarjeta", "ser-interprete", "carta", "interprete", "empresas",
+  "alerta", "subtitulos", "trabajo", "aprender", "sello", "conversacion", "lugares", "senas", "ley", "cifras", "dia", "hablar", "comunidad",
   "lsp", "colaborar", "blog", "puente",
 ];
 const orden = (r: Respuesta) => PRIORIDAD.indexOf(r.id);

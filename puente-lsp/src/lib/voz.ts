@@ -1,5 +1,5 @@
 // Transcripción de voz con la Web Speech API de Chrome / Edge.
-// El navegador envía la voz a los servidores de Google para transcribirla.
+// El navegador envía la voz a los servidores de Google o Microsoft para transcribirla.
 
 type Resultado = { 0: { transcript: string }; isFinal: boolean };
 type EventoResultado = {
@@ -33,15 +33,30 @@ type Opciones = {
   alParcial: (texto: string) => void;
   alFinal: (texto: string) => void;
   alError: (mensaje: string) => void;
+  // Se llama cuando la transcripción se apaga sola para siempre (error fatal o
+  // micrófono no disponible). Se llama de forma asíncrona, desde un evento del reconocedor.
+  alDetenido?: () => void;
+  // Frase que se agrega al final de los mensajes de error de red o micrófono.
+  // Por defecto mantiene el texto de Alerta Visual; "" deja el mensaje sin frase.
+  complemento?: string;
 };
 
+const COMPLEMENTO_ALERTA = "Los avisos de sonido siguen funcionando.";
 const ESPERA_INICIAL_MS = 300;
 const ESPERA_MAXIMA_MS = 30000;
 // Errores que no se arreglan reintentando sin parar.
 const ERRORES_FATALES = new Set(["not-allowed", "service-not-allowed"]);
 const INTENTOS_SIN_MIC = 5;
 
-export function iniciarVoz({ idiomas, alParcial, alFinal, alError }: Opciones) {
+export function iniciarVoz({
+  idiomas,
+  alParcial,
+  alFinal,
+  alError,
+  alDetenido,
+  complemento = COMPLEMENTO_ALERTA,
+}: Opciones) {
+  const conComplemento = (texto: string) => (complemento ? `${texto} ${complemento}` : texto);
   const w = window as Ventana;
   const Clase = w.SpeechRecognition ?? w.webkitSpeechRecognition;
   const nada = { detener() {}, pausar() {}, reanudar() {} };
@@ -102,14 +117,16 @@ export function iniciarVoz({ idiomas, alParcial, alFinal, alError }: Opciones) {
       if (ERRORES_FATALES.has(e.error)) {
         activo = false;
         alError("No hay permiso para usar el micrófono en la transcripción.");
+        alDetenido?.();
       } else if (e.error === "language-not-supported" && idioma < idiomas.length - 1) {
         idioma++;
         espera = ESPERA_INICIAL_MS;
       } else if (e.error === "network") {
-        alError("Sin internet: la transcripción de voz necesita conexión. Los avisos de sonido siguen funcionando.");
+        alError(conComplemento("Sin internet: la transcripción de voz necesita conexión."));
       } else if (e.error === "audio-capture" && ++sinMic >= INTENTOS_SIN_MIC) {
         activo = false;
-        alError("La transcripción no puede usar el micrófono. Los avisos de sonido siguen funcionando.");
+        alError(conComplemento("La transcripción no puede usar el micrófono."));
+        alDetenido?.();
       }
       // "no-speech" y "aborted" son normales: se reinicia en onend.
     };

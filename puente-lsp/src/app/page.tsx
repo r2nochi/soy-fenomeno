@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { ARTICULOS } from "@/lib/blog";
 import { CreditoFotos } from "@/components/CreditoFotos";
+import { ListaHerramientas } from "@/components/ListaHerramientas";
 import { enlaceWhatsapp, REDES } from "@/lib/sitio";
 import { SONIDO_POR_ID } from "@/lib/sonidos";
 
@@ -49,9 +50,9 @@ const PARA_QUIEN = [
     Icono: Building2,
     titulo: "Si representas una empresa o entidad",
     texto:
-      "Prueba gratis la atención a clientes Sordos por videollamada en nuestro piloto. La Ley 29535 promueve que las entidades faciliten intérpretes de LSP.",
-    href: "/blog/interpretes-de-lsp-lo-que-dice-la-ley",
-    accion: "Qué dice la ley",
+      "Pide gratis el Sello Puente: un afiche con QR para que tus clientes Sordos conversen con tu equipo desde su celular. También puedes probar el piloto de intérpretes por videollamada.",
+    href: "/sello",
+    accion: "Pedir el sello",
   },
   {
     Icono: Languages,
@@ -189,6 +190,24 @@ export default function Inicio() {
             </Link>
           )}
         </div>
+      </section>
+
+      <section
+        aria-labelledby="titulo-herramientas"
+        className="mx-auto max-w-6xl px-4 pb-16 sm:px-8"
+      >
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <h2 id="titulo-herramientas" className="text-4xl font-bold tracking-tight">
+            Para el día a día
+          </h2>
+          <Link
+            href="/herramientas"
+            className="text-xl font-bold text-acento underline decoration-2 underline-offset-4"
+          >
+            Ver todas las herramientas
+          </Link>
+        </div>
+        <ListaHerramientas nivel="h3" />
       </section>
 
       <section

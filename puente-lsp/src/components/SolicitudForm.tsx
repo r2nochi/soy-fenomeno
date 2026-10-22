@@ -275,8 +275,12 @@ export function SolicitudForm() {
             className="mt-1 size-5 shrink-0 accent-acento"
           />
           <span>
-            Acepto que me contacten por WhatsApp o correo para coordinar este
-            servicio. No compartimos tus datos con nadie más.
+            Acepto que Puente LSP guarde estos datos y me contacte por WhatsApp
+            o correo para el piloto. Leí la{" "}
+            <a href="/privacidad" target="_blank" className="font-bold text-acento underline underline-offset-4">
+              política de privacidad
+            </a>
+            .
           </span>
         </label>
         <MensajeError id="error-consentimiento" errores={e.consentimiento} />

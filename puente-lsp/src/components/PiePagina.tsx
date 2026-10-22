@@ -48,7 +48,10 @@ export function PiePagina() {
         </div>
       </div>
       <p className="mx-auto max-w-6xl px-4 pb-10 text-base text-suave sm:px-8">
-        Puente LSP · Lima, Perú. Nada sobre nosotros sin nosotros.
+        Puente LSP · Lima, Perú. Nada sobre nosotros sin nosotros. ·{" "}
+        <Link href="/privacidad" className="underline underline-offset-4">
+          Privacidad
+        </Link>
       </p>
     </footer>
   );
