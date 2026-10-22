@@ -1,16 +1,21 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
-import { SendHorizontal, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { MessageCircle, SendHorizontal, X } from "lucide-react";
+import { RESPUESTAS, responder, type Respuesta } from "@/lib/respuestas";
+import { enlaceWhatsapp } from "@/lib/sitio";
 
-const SUGERENCIAS = [
-  "¿Cómo pido un intérprete de LSP?",
-  "¿Cómo hablo con una persona Sorda?",
-  "¿Qué hace Alerta Visual?",
-];
+const SUGERENCIAS = RESPUESTAS.filter((r) =>
+  ["interprete", "hablar", "alerta", "trabajo"].includes(r.id),
+);
+
+// Temas en los que conviene ofrecer hablar con una persona.
+const CON_WHATSAPP = new Set(["no-entiendo", "colaborar", "empresas"]);
+
+type Mensaje =
+  | { id: number; rol: "tu"; texto: string }
+  | { id: number; rol: "puente"; respuesta: Respuesta; relacionadas: Respuesta[] };
 
 // Personaje de Puente LSP: una cara amable bajo el arco del logo. Saluda con la
 // mano, pero no hace señas (las señas las hacen personas reales).
@@ -29,64 +34,48 @@ function Personaje({ className = "" }: { className?: string }) {
   );
 }
 
-// Convierte enlaces [texto](/ruta) y rutas sueltas del sitio en enlaces
-// internos. Solo rutas del propio sitio: un enlace externo inventado por la IA
-// queda como texto.
-const PATRON =
-  /\[([^\]]+)\]\(([^\s)]+)\)|(?<=^|[\s(])(\/(?:interprete|herramientas\/alerta-visual|trabajos|comunidad|blog)(?:\/[\w-]+)*)(?![\w/-])/g;
-const INTERNA = /^\/(?![/\\])/;
-
-function conEnlaces(texto: string): ReactNode[] {
-  const partes: ReactNode[] = [];
-  let ultimo = 0;
-  for (const m of texto.matchAll(PATRON)) {
-    if (m.index > ultimo) partes.push(texto.slice(ultimo, m.index));
-    const href = m[2] ?? m[3];
-    const etiqueta = m[1] ?? m[3];
-    partes.push(
-      INTERNA.test(href) ? (
-        <Link key={m.index} href={href} className="font-bold text-acento underline underline-offset-4">
-          {etiqueta}
-        </Link>
-      ) : (
-        etiqueta
-      ),
-    );
-    ultimo = m.index + m[0].length;
-  }
-  if (ultimo < texto.length) partes.push(texto.slice(ultimo));
-  return partes;
-}
-
-function Texto({ texto }: { texto: string }) {
-  // Quita el formato **negrita** y muestra cada línea por separado.
-  const lineas = texto.replace(/\*\*/g, "").split("\n").filter((l) => l.trim());
+function Lineas({ lineas }: { lineas: string[] }) {
   return (
     <>
       {lineas.map((l, i) =>
-        /^\s*[-•*]\s+/.test(l) ? (
+        l.startsWith("- ") ? (
           <p key={i} className="flex gap-2">
             <span aria-hidden="true">•</span>
-            <span>{conEnlaces(l.replace(/^\s*[-•*]\s+/, ""))}</span>
+            <span>{l.slice(2)}</span>
           </p>
         ) : (
-          <p key={i}>{conEnlaces(l)}</p>
+          <p key={i}>{l}</p>
         ),
       )}
     </>
   );
 }
 
+function Preguntas({ lista, alElegir }: { lista: Respuesta[]; alElegir: (r: Respuesta) => void }) {
+  return (
+    <ul className="space-y-2">
+      {lista.map((r) => (
+        <li key={r.id}>
+          <button
+            onClick={() => alElegir(r)}
+            className="w-full rounded-2xl border-2 border-borde/55 px-4 py-2 text-left text-base font-bold hover:border-acento"
+          >
+            {r.pregunta}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function Asistente() {
   const [abierto, setAbierto] = useState(false);
   const [entrada, setEntrada] = useState("");
-  const { messages, sendMessage, status, error, stop } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/asistente" }),
-  });
+  const [mensajes, setMensajes] = useState<Mensaje[]>([]);
   const entradaRef = useRef<HTMLTextAreaElement>(null);
   const listaRef = useRef<HTMLDivElement>(null);
   const botonRef = useRef<HTMLButtonElement>(null);
-  const ocupado = status === "submitted" || status === "streaming";
+  const siguienteId = useRef(0);
 
   function cerrar() {
     setAbierto(false);
@@ -110,26 +99,32 @@ export function Asistente() {
     return () => document.removeEventListener("keydown", alPulsar);
   }, [abierto]);
 
-  // Para lectores de pantalla y braille: se anuncia la respuesta completa, no
-  // cada fragmento mientras llega.
-  const ultima = messages.at(-1);
-  const anuncio =
-    status === "submitted"
-      ? "Puente está escribiendo…"
-      : status === "ready" && ultima?.role === "assistant"
-        ? `Puente: ${ultima.parts.map((p) => (p.type === "text" ? p.text : "")).join(" ")}`
-        : "";
-
   useEffect(() => {
     listaRef.current?.scrollTo({ top: listaRef.current.scrollHeight });
-  }, [messages, status]);
+  }, [mensajes]);
+
+  function agregar(texto: string, respuesta: Respuesta, relacionadas: Respuesta[]) {
+    setMensajes((m) => [
+      ...m,
+      { id: siguienteId.current++, rol: "tu", texto },
+      { id: siguienteId.current++, rol: "puente", respuesta, relacionadas },
+    ]);
+  }
 
   function enviar(texto: string) {
-    const limpio = texto.trim();
-    if (!limpio || ocupado) return;
-    void sendMessage({ text: limpio });
+    const limpio = texto.trim().slice(0, 300);
+    if (!limpio) return;
+    const { respuesta, relacionadas } = responder(limpio);
+    agregar(limpio, respuesta, relacionadas);
     setEntrada("");
   }
+
+  const elegir = (r: Respuesta) => agregar(r.pregunta, r, []);
+
+  // Para lectores de pantalla y braille: se anuncia la última respuesta.
+  const ultima = mensajes.at(-1);
+  const anuncio = ultima?.rol === "puente" ? `Puente: ${ultima.respuesta.lineas.join(" ")}` : "";
+  const whatsapp = enlaceWhatsapp("Hola, tengo una pregunta sobre Puente LSP.");
 
   return (
     <div className="fixed right-4 bottom-4 z-40 flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
@@ -145,67 +140,67 @@ export function Asistente() {
               <h2 className="text-xl font-bold">Pregúntale a Puente</h2>
               <p className="text-base opacity-85">Respondo por escrito, en español sencillo.</p>
             </div>
-            <button
-              onClick={cerrar}
-              aria-label="Cerrar el panel"
-              className="rounded-xl p-2 hover:bg-white/15"
-            >
+            <button onClick={cerrar} aria-label="Cerrar el panel" className="rounded-xl p-2 hover:bg-white/15">
               <X aria-hidden="true" className="size-6" />
             </button>
           </header>
 
           <div ref={listaRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-5 text-lg leading-snug">
-            {messages.length === 0 && (
+            {mensajes.length === 0 && (
               <div>
                 <p>
-                  Hola. Te ayudo con intérpretes de LSP, Alerta Visual y tips para
-                  comunicarte mejor. No hago señas: para eso, nada reemplaza a una
-                  persona.
+                  Hola. Te ayudo con intérpretes de LSP, Alerta Visual, trabajos y
+                  tips para comunicarte mejor. No hago señas: para eso, nada
+                  reemplaza a una persona.
                 </p>
-                <ul className="mt-4 space-y-2">
-                  {SUGERENCIAS.map((s) => (
-                    <li key={s}>
-                      <button
-                        onClick={() => enviar(s)}
-                        className="w-full rounded-2xl border-2 border-borde/55 px-4 py-2 text-left text-base font-bold hover:border-acento"
-                      >
-                        {s}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-4">
+                  <Preguntas lista={SUGERENCIAS} alElegir={elegir} />
+                </div>
               </div>
             )}
 
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={
-                  m.role === "user"
-                    ? "ml-8 rounded-2xl bg-acento-fondo px-4 py-3"
-                    : "mr-4 space-y-2"
-                }
-              >
-                <span className="sr-only">{m.role === "user" ? "Tú:" : "Puente:"}</span>
-                {m.parts.map((p, i) =>
-                  p.type === "text" ? (
-                    <Fragment key={i}>
-                      <Texto texto={p.text} />
-                    </Fragment>
-                  ) : null,
-                )}
-              </div>
-            ))}
-
-            {status === "submitted" && (
-              <p className="text-suave" aria-hidden="true">
-                Puente está escribiendo…
-              </p>
-            )}
-            {error && (
-              <p role="alert" className="rounded-2xl border-2 border-error p-3 text-base text-error">
-                No pude responder ahora. Inténtalo de nuevo en un momento.
-              </p>
+            {mensajes.map((m) =>
+              m.rol === "tu" ? (
+                <div key={m.id} className="ml-8 rounded-2xl bg-acento-fondo px-4 py-3">
+                  <span className="sr-only">Tú:</span>
+                  {m.texto}
+                </div>
+              ) : (
+                <div key={m.id} className="mr-4 space-y-2">
+                  <span className="sr-only">Puente:</span>
+                  <Lineas lineas={m.respuesta.lineas} />
+                  {(!!m.respuesta.enlaces?.length || (!!whatsapp && CON_WHATSAPP.has(m.respuesta.id))) && (
+                    <p className="flex flex-wrap gap-2 pt-1">
+                      {m.respuesta.enlaces?.map((e) => (
+                        <Link
+                          key={e.href + e.texto}
+                          href={e.href}
+                          className="rounded-full bg-accion px-4 py-2 text-base font-bold text-sobre-accion no-underline hover:bg-accion-hover"
+                        >
+                          {e.texto}
+                        </Link>
+                      ))}
+                      {whatsapp && CON_WHATSAPP.has(m.respuesta.id) && (
+                        <a
+                          href={whatsapp}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border-2 border-borde px-4 py-2 text-base font-bold no-underline hover:border-acento"
+                        >
+                          <MessageCircle aria-hidden="true" className="size-5" />
+                          Escribir por WhatsApp
+                        </a>
+                      )}
+                    </p>
+                  )}
+                  {m.relacionadas.length > 0 && (
+                    <div className="pt-2">
+                      <p className="mb-2 text-base text-suave">También te puede servir:</p>
+                      <Preguntas lista={m.relacionadas} alElegir={elegir} />
+                    </div>
+                  )}
+                </div>
+              ),
             )}
           </div>
           <p role="status" className="sr-only">
@@ -227,7 +222,7 @@ export function Asistente() {
               ref={entradaRef}
               value={entrada}
               rows={2}
-              maxLength={1200}
+              maxLength={300}
               onChange={(e) => setEntrada(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
@@ -238,26 +233,16 @@ export function Asistente() {
               placeholder="Escribe tu pregunta…"
               className="flex-1 resize-none rounded-2xl border-2 border-borde bg-fondo px-4 py-3 text-lg"
             />
-            {ocupado ? (
-              <button
-                type="button"
-                onClick={stop}
-                className="rounded-2xl border-2 border-borde px-4 py-3 text-base font-bold"
-              >
-                Detener
-              </button>
-            ) : (
-              <button
-                type="submit"
-                aria-label="Enviar pregunta"
-                className="rounded-2xl bg-accion p-3 text-sobre-accion hover:bg-accion-hover"
-              >
-                <SendHorizontal aria-hidden="true" className="size-6" />
-              </button>
-            )}
+            <button
+              type="submit"
+              aria-label="Enviar pregunta"
+              className="rounded-2xl bg-accion p-3 text-sobre-accion hover:bg-accion-hover"
+            >
+              <SendHorizontal aria-hidden="true" className="size-6" />
+            </button>
           </form>
           <p className="px-4 pb-3 text-sm text-suave">
-            Respuestas generadas por IA: pueden equivocarse. No es asesoría legal ni médica.
+            Respuestas escritas por el equipo de Puente LSP. No es asesoría legal ni médica.
           </p>
         </section>
       )}
