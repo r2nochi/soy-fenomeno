@@ -18,9 +18,10 @@ export const NAVEGACION = [
 // enlace completo aquí y el botón aparece solo en el sitio. Sin enlace, la red
 // se muestra como "pronto" y sin enlace (nunca se inventan cuentas).
 export const REDES: { nombre: string; url: string | null }[] = [
-  { nombre: "TikTok", url: null },
-  { nombre: "YouTube", url: null },
-  { nombre: "Instagram", url: null },
+  { nombre: "TikTok", url: "https://www.tiktok.com/@puente.fenomenos" },
+  { nombre: "YouTube", url: "https://www.youtube.com/channel/UCFvMrbBhF05RB7FOzB99wbQ" },
+  { nombre: "Instagram", url: "https://www.instagram.com/puentefenomenolsp/" },
+  { nombre: "X", url: "https://x.com/fenomenoslsp" },
   { nombre: "Facebook", url: null },
 ];
 

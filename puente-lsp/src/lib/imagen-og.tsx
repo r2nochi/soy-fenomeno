@@ -4,6 +4,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { SimboloPuente as Puente } from "@/components/SimboloPuente";
 import { URL_SITIO } from "./sitio";
 
 export const TAMANO_OG = { width: 1200, height: 630 };
@@ -23,25 +24,6 @@ const fuentes = Promise.all([
   readFile(join(process.cwd(), "src/assets/AtkinsonHyperlegible-Regular.ttf")),
   readFile(join(process.cwd(), "src/assets/AtkinsonHyperlegible-Bold.ttf")),
 ]);
-
-// El mismo arco de puente del logotipo (components/Marca.tsx).
-function Puente({ ancho, color }: { ancho: number; color: string }) {
-  return (
-    <svg
-      width={ancho}
-      height={(ancho * 28) / 40}
-      viewBox="0 0 40 28"
-      fill="none"
-      stroke={color}
-      strokeWidth="3.5"
-      strokeLinecap="round"
-    >
-      <path d="M3 24 Q20 -4 37 24" />
-      <path d="M2 24h36" />
-      <path d="M12 24v-9M28 24v-9M20 24V8" />
-    </svg>
-  );
-}
 
 export async function imagenOg(titulo: string, texto: string) {
   const [regular, negrita] = await fuentes;
@@ -64,7 +46,7 @@ export async function imagenOg(titulo: string, texto: string) {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <Puente ancho={72} color={COLOR.acento} />
+          <Puente ancho={84} color={COLOR.acento} />
           <span style={{ fontSize: 40, fontWeight: 700 }}>Puente LSP</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -121,7 +103,7 @@ export function imagenIcono(lado: number) {
           background: COLOR.acento,
         }}
       >
-        <Puente ancho={Math.round(lado * 0.6)} color={COLOR.blanco} />
+        <Puente ancho={Math.round(lado * 0.66)} color={COLOR.blanco} />
       </div>
     ),
     { width: lado, height: lado },

@@ -344,7 +344,7 @@ export default function Inicio() {
               Videos cortos, con subtítulos y en LSP.
             </h2>
             <p className="mt-4 max-w-[46ch] text-xl leading-snug opacity-85">
-              Pronto en redes: tips para el día a día, para entenderse mejor y
+              Síguenos en redes: tips para el día a día, para entenderse mejor y
               para conocer tus derechos. Siempre hechos para verse sin sonido.
             </p>
           </div>

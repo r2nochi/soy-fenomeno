@@ -30,7 +30,7 @@
 2. **Bing Webmaster Tools**: https://www.bing.com/webmasters
    - Puedes importar la propiedad desde Search Console, o verificar con la variable `NEXT_PUBLIC_VERIFICACION_BING` (el código de `msvalidate.01`).
    - Bing también alimenta a DuckDuckGo, Yahoo y ChatGPT Search.
-3. **Redes sociales:** cuando existan las cuentas, pega sus enlaces en `REDES`, en `src/lib/sitio.ts`. Aparecerán en el pie de página y también en los datos para Google (`sameAs`).
+3. **Redes sociales:** TikTok, YouTube, Instagram y X ya están en `REDES` (`src/lib/sitio.ts`) y salen en el sitio y en los datos para Google (`sameAs`). Falta Facebook: cuando exista, pega su enlace ahí. En Search Console puedes agregar también estas cuentas (sección "cuenta o canal de plataforma").
 4. **Enlaces desde otros sitios**, que es lo que más sube el ranking: pide a las organizaciones de `/comunidad`, a colegios, a asociaciones de intérpretes y a municipalidades que enlacen a una herramienta concreta.
 5. **Revisión de los artículos por una persona Sorda** (`revisado: true`). Da confianza y Google valora la experiencia real.
 6. **Opcional, con costo:** un dominio propio (`.pe` o `.org`) se recuerda mejor que `vercel.app`. Si lo compras, cambia `NEXT_PUBLIC_URL_SITIO` y agrega el dominio nuevo en Search Console.
