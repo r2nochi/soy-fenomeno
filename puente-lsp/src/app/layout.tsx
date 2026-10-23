@@ -18,7 +18,7 @@ const atkinson = Atkinson_Hyperlegible({
 // el HTML); una variable de entorno de Vercel puede reemplazarlos.
 const verificacionGoogle =
   process.env.NEXT_PUBLIC_VERIFICACION_GOOGLE ||
-  "-hcAWhvAKjzqcq_BsZWxYR2gWeCKQIqiY47nuCOsTPs";
+  "nKoCcS1UhNOdJVugoBS35O9SvPeSQn4QovQNybfOLv4";
 const verificacionBing = process.env.NEXT_PUBLIC_VERIFICACION_BING;
 
 // Cada página define su título, descripción, canónica y openGraph con
