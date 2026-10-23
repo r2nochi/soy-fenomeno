@@ -49,3 +49,7 @@
 - **`resumen`:** de 120 a 155 caracteres. Es el texto que Google muestra debajo del título.
 - **`fecha`:** la fecha real de publicación.
 - **Enlaces:** incluye en el artículo al menos un enlace a una herramienta relacionada.
+
+## IndexNow (Bing y otros buscadores)
+
+Después de publicar páginas nuevas (por ejemplo un artículo del blog), corre `npm run indexnow`. Lee el sitemap publicado y avisa a Bing de todas las direcciones. La clave es el archivo `public/75a449e08b5c3b4f1d306f1105d36605.txt`: no lo borres.
