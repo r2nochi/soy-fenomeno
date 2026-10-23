@@ -14,9 +14,11 @@ const atkinson = Atkinson_Hyperlegible({
   weight: ["400", "700"],
 });
 
-// Códigos de Google Search Console y Bing Webmaster Tools: se pegan en las
-// variables de entorno de Vercel. Sin código, la etiqueta no se muestra.
-const verificacionGoogle = process.env.NEXT_PUBLIC_VERIFICACION_GOOGLE;
+// Códigos de Google Search Console y Bing Webmaster Tools. Son públicos (van en
+// el HTML); una variable de entorno de Vercel puede reemplazarlos.
+const verificacionGoogle =
+  process.env.NEXT_PUBLIC_VERIFICACION_GOOGLE ||
+  "-hcAWhvAKjzqcq_BsZWxYR2gWeCKQIqiY47nuCOsTPs";
 const verificacionBing = process.env.NEXT_PUBLIC_VERIFICACION_BING;
 
 // Cada página define su título, descripción, canónica y openGraph con
