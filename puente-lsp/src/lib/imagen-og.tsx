@@ -103,7 +103,8 @@ export function imagenIcono(lado: number) {
           background: COLOR.acento,
         }}
       >
-        <Puente ancho={Math.round(lado * 0.66)} color={COLOR.blanco} />
+        {/* Íconos chicos (pestaña): casi sin margen. Grandes: margen para Android. */}
+        <Puente ancho={Math.round(lado * (lado <= 64 ? 0.9 : 0.66))} color={COLOR.blanco} />
       </div>
     ),
     { width: lado, height: lado },
