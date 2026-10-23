@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import Link from "next/link";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
-export const metadata: Metadata = {
-  title: "Privacidad",
-  description: "Qué datos guarda Puente LSP, para qué, dónde y cómo pedir que los borremos.",
-};
+export const metadata: Metadata = metaPagina({
+  titulo: "Privacidad",
+  descripcion:
+    "Qué datos guarda Puente LSP, para qué, dónde y cómo pedir que los borremos.",
+  ruta: "/privacidad",
+});
 
 const CONTACTO = enlaceWhatsapp("Hola, quiero ver, corregir o borrar mis datos en Puente LSP.");
 

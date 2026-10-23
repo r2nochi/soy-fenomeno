@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import { SolicitudForm } from "@/components/SolicitudForm";
 
-export const metadata: Metadata = {
-  title: "Intérprete de LSP por videollamada: lista de interesados",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Intérprete de LSP por videollamada: lista de interesados",
+  descripcion:
     "Estamos armando una red de intérpretes de Lengua de Señas Peruana (LSP) por videollamada. Anótate en la lista si eres una persona Sorda, una entidad o intérprete.",
-};
+  ruta: "/interprete",
+});
 
 const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP;
 const enlaceWhatsapp = whatsapp

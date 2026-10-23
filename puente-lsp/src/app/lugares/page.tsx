@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import Link from "next/link";
 import { Suspense } from "react";
 import { DirectorioLugares } from "@/components/DirectorioLugares";
 import { lugaresAprobados } from "@/lib/lugares";
 
-export const metadata: Metadata = {
-  title: "Lugares accesibles",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Lugares accesibles para personas Sordas en el Perú",
+  descripcion:
     "Farmacias, bancos, municipalidades y otros lugares donde te pueden atender en Lengua de Señas Peruana o con pantalla. Revisamos cada registro antes de publicarlo.",
-};
+  ruta: "/lugares",
+});
 
 export default function PaginaLugares() {
   return (

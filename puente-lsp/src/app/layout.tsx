@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible } from "next/font/google";
+import { DESCRIPCION_SITIO, FEED_BLOG, NOMBRE_SITIO } from "@/lib/seo";
 import { URL_SITIO } from "@/lib/sitio";
 import { Asistente } from "@/components/Asistente";
 import { Cabecera } from "@/components/Cabecera";
@@ -13,14 +14,27 @@ const atkinson = Atkinson_Hyperlegible({
   weight: ["400", "700"],
 });
 
+// Códigos de Google Search Console y Bing Webmaster Tools: se pegan en las
+// variables de entorno de Vercel. Sin código, la etiqueta no se muestra.
+const verificacionGoogle = process.env.NEXT_PUBLIC_VERIFICACION_GOOGLE;
+const verificacionBing = process.env.NEXT_PUBLIC_VERIFICACION_BING;
+
+// Cada página define su título, descripción, canónica y openGraph con
+// metaPagina (lib/seo.ts); aquí solo va lo común a todo el sitio.
 export const metadata: Metadata = {
   metadataBase: new URL(URL_SITIO),
   title: {
-    default: "Puente LSP · Herramientas para la comunidad Sorda del Perú",
-    template: "%s · Puente LSP",
+    default: `${NOMBRE_SITIO} · Herramientas para la comunidad Sorda del Perú`,
+    template: `%s · ${NOMBRE_SITIO}`,
   },
-  description:
-    "Convierte los sonidos en avisos visuales, encuentra trabajos para personas con discapacidad y lee tips para la comunidad Sorda. Gratis y en español.",
+  description: DESCRIPCION_SITIO,
+  applicationName: NOMBRE_SITIO,
+  twitter: { card: "summary_large_image" },
+  alternates: { types: FEED_BLOG },
+  verification: {
+    ...(verificacionGoogle && { google: verificacionGoogle }),
+    ...(verificacionBing && { other: { "msvalidate.01": verificacionBing } }),
+  },
 };
 
 export const viewport: Viewport = {

@@ -13,8 +13,23 @@ import {
 import { ARTICULOS } from "@/lib/blog";
 import { CreditoFotos } from "@/components/CreditoFotos";
 import { ListaHerramientas } from "@/components/ListaHerramientas";
-import { enlaceWhatsapp, REDES } from "@/lib/sitio";
+import type { Metadata } from "next";
+import { DatosEstructurados } from "@/components/DatosEstructurados";
+import {
+  DESCRIPCION_SITIO,
+  metaPagina,
+  NOMBRE_SITIO,
+  ORGANIZACION,
+} from "@/lib/seo";
+import { enlaceWhatsapp, REDES, URL_SITIO } from "@/lib/sitio";
 import { SONIDO_POR_ID } from "@/lib/sonidos";
+
+export const metadata: Metadata = metaPagina({
+  titulo: `${NOMBRE_SITIO} · Herramientas para la comunidad Sorda del Perú`,
+  tituloCompleto: true,
+  descripcion: DESCRIPCION_SITIO,
+  ruta: "/",
+});
 
 const WHATSAPP_COLABORAR = enlaceWhatsapp(
   "Hola, quiero colaborar con Puente LSP.",
@@ -79,6 +94,23 @@ export default function Inicio() {
 
   return (
     <main id="contenido" className="flex-1">
+      <DatosEstructurados
+        datos={{
+          "@context": "https://schema.org",
+          "@graph": [
+            ORGANIZACION,
+            {
+              "@type": "WebSite",
+              "@id": `${URL_SITIO}/#sitio`,
+              name: NOMBRE_SITIO,
+              url: URL_SITIO,
+              description: DESCRIPCION_SITIO,
+              inLanguage: "es-PE",
+              publisher: { "@id": ORGANIZACION["@id"] },
+            },
+          ],
+        }}
+      />
       <section
         aria-labelledby="titulo-inicio"
         className="mx-auto max-w-6xl px-4 pt-12 pb-16 sm:px-8 sm:pt-16"

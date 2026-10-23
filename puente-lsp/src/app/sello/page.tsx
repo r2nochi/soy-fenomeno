@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import { SelloForm } from "@/components/SelloForm";
 import { Sello } from "@/components/Sello";
 
-export const metadata: Metadata = {
-  title: "Sello: Aquí atendemos a personas Sordas",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Sello para negocios: Aquí atendemos a personas Sordas",
+  descripcion:
     "Registra tu lugar, imprime un afiche y muestra que atiendes a personas Sordas. Gratis. Es un compromiso de tu lugar, no una certificación oficial.",
-};
+  ruta: "/sello",
+});
 
 const pasos = [
   {

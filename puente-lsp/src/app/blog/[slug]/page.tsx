@@ -3,8 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
-import { ARTICULOS, articuloPorSlug, fechaLegible } from "@/lib/blog";
+import { ARTICULOS, articuloPorSlug, fechaLegible, type DatosArticulo } from "@/lib/blog";
+import { Compartir } from "@/components/Compartir";
 import { CreditoFotos } from "@/components/CreditoFotos";
+import { DatosEstructurados } from "@/components/DatosEstructurados";
+import { metaPagina, migas, ORGANIZACION, urlAbsoluta } from "@/lib/seo";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
 export function generateStaticParams() {
@@ -17,15 +20,39 @@ export async function generateMetadata({
   const { slug } = await params;
   const a = articuloPorSlug(slug);
   if (!a) return {};
-  return {
-    title: a.titulo,
-    description: a.resumen,
-    openGraph: {
-      title: a.titulo,
-      description: a.resumen,
-      type: "article",
-      images: [{ url: a.portada.src, alt: a.portada.alt }],
+  return metaPagina({
+    titulo: a.titulo,
+    descripcion: a.resumen,
+    ruta: `/blog/${a.slug}`,
+    articulo: {
+      publicado: a.fecha,
+      imagen: { url: a.portada.src, alt: a.portada.alt },
     },
+  });
+}
+
+function datosArticulo(a: DatosArticulo) {
+  const ruta = `/blog/${a.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: a.titulo,
+        description: a.resumen,
+        image: urlAbsoluta(a.portada.src),
+        datePublished: a.fecha,
+        inLanguage: "es-PE",
+        mainEntityOfPage: urlAbsoluta(ruta),
+        author: ORGANIZACION,
+        publisher: ORGANIZACION,
+      },
+      migas([
+        { nombre: "Inicio", ruta: "/" },
+        { nombre: "Blog", ruta: "/blog" },
+        { nombre: a.titulo, ruta },
+      ]),
+    ],
   };
 }
 
@@ -43,6 +70,7 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
 
   return (
     <main id="contenido" className="flex-1">
+      <DatosEstructurados datos={datosArticulo(datos)} />
       <article className="mx-auto max-w-[44rem] px-4 pt-12 pb-16 sm:px-6">
         <Link
           href="/blog"
@@ -103,6 +131,8 @@ export default async function Articulo({ params }: PageProps<"/blog/[slug]">) {
         <div className="mt-10">
           <Contenido />
         </div>
+
+        <Compartir titulo={datos.titulo} url={urlAbsoluta(`/blog/${slug}`)} />
 
         {datos.fuentes && datos.fuentes.length > 0 && (
           <section aria-labelledby="titulo-fuentes" className="mt-14 border-t-2 border-borde/25 pt-8">

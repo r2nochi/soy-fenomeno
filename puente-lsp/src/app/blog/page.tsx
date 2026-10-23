@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { ARTICULOS, fechaLegible } from "@/lib/blog";
 import { CreditoFotos } from "@/components/CreditoFotos";
 
-export const metadata: Metadata = {
-  title: "Blog: tips y guías para la comunidad Sorda",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Blog: tips y guías para la comunidad Sorda",
+  descripcion:
     "Cómo hablar con una persona Sorda, qué es la LSP, qué dice la ley sobre intérpretes y más. En español sencillo.",
-};
+  ruta: "/blog",
+});
 
 export default function Blog() {
   const [primero, ...resto] = ARTICULOS;

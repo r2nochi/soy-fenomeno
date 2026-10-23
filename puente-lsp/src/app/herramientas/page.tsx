@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import { ListaHerramientas } from "@/components/ListaHerramientas";
 
-export const metadata: Metadata = {
-  title: "Herramientas gratis para la comunidad Sorda",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Herramientas gratis para la comunidad Sorda",
+  descripcion:
     "Conversación cara a cara, Alerta Visual, tarjeta de emergencia, carta para pedir intérprete, lugares accesibles y sello para negocios. Gratis.",
-};
+  ruta: "/herramientas",
+});
 
 export default function Herramientas() {
   return (

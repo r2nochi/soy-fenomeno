@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import { Suspense } from "react";
 import { BadgeCheck, BriefcaseBusiness, ExternalLink, Landmark } from "lucide-react";
 import { AREAS, convocatoriasDelDia, type AreaId } from "@/lib/trabajos";
 import { ListaTrabajos } from "@/components/ListaTrabajos";
 
-export const metadata: Metadata = {
-  title: "Trabajos para personas con discapacidad",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Trabajos para personas con discapacidad en el Perú",
+  descripcion:
     "Empleos para personas con discapacidad en el Perú, por área: TI, recursos humanos, administración, salud, atención al público y más. Portales inclusivos y convocatorias del Estado.",
-};
+  ruta: "/trabajos",
+});
 
 const PASOS_MTPE = [
   "Crea tu cuenta en Empleos Perú.",

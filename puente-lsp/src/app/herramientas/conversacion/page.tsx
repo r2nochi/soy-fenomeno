@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
+import { DatosEstructurados } from "@/components/DatosEstructurados";
+import { datosHerramienta, metaPagina } from "@/lib/seo";
 import { Keyboard, Mic, Smartphone, type LucideIcon } from "lucide-react";
 import { Conversacion } from "@/components/Conversacion";
 
-export const metadata: Metadata = {
-  title: "Conversación cara a cara",
-  description:
+const PAGINA = {
+  titulo: "Conversación cara a cara con una persona Sorda",
+  descripcion:
     "Pon el celular entre una persona Sorda y una persona oyente. Se escribe o se habla, y lo que se dice aparece en letra grande. Gratis y sin registro.",
+  ruta: "/herramientas/conversacion",
 };
+
+export const metadata: Metadata = metaPagina(PAGINA);
 
 const PASOS: { icono: LucideIcon; texto: string }[] = [
   {
@@ -28,6 +33,7 @@ const PASOS: { icono: LucideIcon; texto: string }[] = [
 export default function PaginaConversacion() {
   return (
     <main id="contenido" className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
+      <DatosEstructurados datos={datosHerramienta(PAGINA)} />
       <header className="mb-8">
         <h1 className="mb-3 text-4xl font-bold sm:text-5xl">
           <span aria-hidden="true">💬</span> Conversación cara a cara

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import { ExternalLink } from "lucide-react";
 import { DIRECTORIO } from "@/lib/directorio";
 import { enlaceWhatsapp } from "@/lib/sitio";
 
-export const metadata: Metadata = {
-  title: "Comunidad: organizaciones, cursos de LSP e instituciones",
-  description:
+export const metadata: Metadata = metaPagina({
+  titulo: "Comunidad Sorda del Perú: organizaciones, cursos de LSP e instituciones",
+  descripcion:
     "Directorio de organizaciones Sordas, intérpretes, cursos de Lengua de Señas Peruana, instituciones y colegios en Perú.",
-};
+  ruta: "/comunidad",
+});
 
 const SUMAR = enlaceWhatsapp("Hola, quiero sugerir una organización para el directorio de Puente LSP.");
 

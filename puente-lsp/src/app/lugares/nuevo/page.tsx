@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
+import { metaPagina } from "@/lib/seo";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ReporteForm } from "@/components/ReporteForm";
 import { lugarPorId } from "@/lib/lugares";
 
+// Es solo un formulario: se comparte, pero no se muestra en buscadores.
 export const metadata: Metadata = {
-  title: "Cuéntanos cómo te atendieron",
-  description:
-    "Cuéntanos qué lugares te atendieron bien en Lengua de Señas Peruana o con pantalla. Lo revisamos antes de publicarlo.",
+  ...metaPagina({
+    titulo: "Cuéntanos cómo te atendieron",
+    descripcion:
+      "Cuéntanos qué lugares te atendieron bien en Lengua de Señas Peruana o con pantalla. Lo revisamos antes de publicarlo.",
+    ruta: "/lugares/nuevo",
+  }),
+  robots: { index: false, follow: true },
 };
 
 export default function PaginaReporte({

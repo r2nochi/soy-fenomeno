@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
+import { DatosEstructurados } from "@/components/DatosEstructurados";
+import { datosHerramienta, metaPagina } from "@/lib/seo";
 import { AlertaCliente } from "@/components/AlertaCliente";
 
-export const metadata: Metadata = {
-  title: "Alerta Visual: avisos de sonido y subtítulos en vivo",
-  description:
+const PAGINA = {
+  titulo: "Alerta Visual: avisos de sonido y subtítulos en vivo",
+  descripcion:
     "Convierte alarmas, timbre, teléfono y bebé llorando en avisos visuales, y la voz en subtítulos con los sonidos intercalados. Gratis y sin registro.",
+  ruta: "/herramientas/alerta-visual",
 };
+
+export const metadata: Metadata = metaPagina(PAGINA);
 
 export default function AlertaVisual() {
   return (
     <main id="contenido" className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
+      <DatosEstructurados datos={datosHerramienta(PAGINA)} />
       <header className="mb-8">
         <h1 className="mb-3 text-4xl font-bold sm:text-5xl">
           🔔 Alerta Visual
