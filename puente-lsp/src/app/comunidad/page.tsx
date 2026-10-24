@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { metaPagina } from "@/lib/seo";
 import { ExternalLink } from "lucide-react";
 import { DIRECTORIO } from "@/lib/directorio";
@@ -26,6 +27,13 @@ export default function Comunidad() {
         <section key={g.id} aria-labelledby={`grupo-${g.id}`} className="mt-14">
           <h2 id={`grupo-${g.id}`} className="text-3xl font-bold">{g.titulo}</h2>
           <p className="mt-1 text-xl text-suave">{g.texto}</p>
+          {g.id === "aprender" && (
+            <p className="mt-2 text-xl">
+              <Link href="/aprende" className="font-bold text-acento underline underline-offset-4">
+                Empieza aquí: abecedario y primeras señas en Puente LSP
+              </Link>
+            </p>
+          )}
           <ul className="mt-6 divide-y-2 divide-borde/25 rounded-[28px] border-[3px] border-borde/55 bg-superficie">
             {g.entradas.map((e) => (
               <li key={e.nombre} className="p-6">

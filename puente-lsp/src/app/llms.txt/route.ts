@@ -24,6 +24,7 @@ ${herramientas.join("\n")}
 ## Secciones
 
 - [Intérprete de LSP por videollamada](${urlAbsoluta("/interprete")}): lista de interesados del piloto gratuito.
+- [Aprende Lengua de Señas Peruana](${urlAbsoluta("/aprende")}): abecedario manual del MINEDU para deletrear tu nombre, modo espejo y primeras señas con videos de personas Sordas del diccionario de la PUCP.
 - [Apps útiles](${urlAbsoluta("/apps")}): subtítulos en vivo, avisos de sonidos y servicios para personas Sordas que ya existen, en el Perú y en otros países, con cómo activarlos.
 - [Trabajos para personas con discapacidad](${urlAbsoluta("/trabajos")}): empleos por área en el Perú.
 - [Comunidad](${urlAbsoluta("/comunidad")}): organizaciones Sordas, cursos de LSP e instituciones.

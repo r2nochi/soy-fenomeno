@@ -21,6 +21,7 @@ const SECCIONES = [
       "La tarjeta de emergencia y el borrador de la carta se guardan solo en tu celular o computadora. La conversación cara a cara no se guarda: se borra al cerrar la página. Nada de esto llega a nosotros.",
       "Los subtítulos y la conversación usan el reconocimiento de voz del navegador: Chrome y Edge envían el audio a los servidores de Google o Microsoft para transcribirlo.",
       "Alerta Visual reconoce los sonidos en tu propio equipo.",
+      "En Aprende LSP, el modo espejo usa la cámara solo para que te veas: no graba ni envía la imagen. Las señas que marcas como practicadas se guardan solo en tu equipo.",
     ],
   },
   {
