@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { metaPagina } from "@/lib/seo";
 import { ListaHerramientas } from "@/components/ListaHerramientas";
 
@@ -17,6 +18,12 @@ export default function Herramientas() {
         Gratis y pensadas para el día a día. Casi todas, sin registro.
       </p>
       <ListaHerramientas />
+      <p className="mt-12 max-w-[60ch] text-xl leading-snug">
+        ¿Buscas subtítulos para un en vivo o avisos de sonidos en tu celular?{" "}
+        <Link href="/apps" className="font-bold text-acento underline underline-offset-4">
+          Mira las apps útiles que ya existen
+        </Link>
+      </p>
     </main>
   );
 }

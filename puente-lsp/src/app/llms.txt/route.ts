@@ -24,6 +24,7 @@ ${herramientas.join("\n")}
 ## Secciones
 
 - [Intérprete de LSP por videollamada](${urlAbsoluta("/interprete")}): lista de interesados del piloto gratuito.
+- [Apps útiles](${urlAbsoluta("/apps")}): subtítulos en vivo, avisos de sonidos y servicios para personas Sordas que ya existen, en el Perú y en otros países, con cómo activarlos.
 - [Trabajos para personas con discapacidad](${urlAbsoluta("/trabajos")}): empleos por área en el Perú.
 - [Comunidad](${urlAbsoluta("/comunidad")}): organizaciones Sordas, cursos de LSP e instituciones.
 - [Privacidad](${urlAbsoluta("/privacidad")}): qué datos se guardan y cómo pedir que se borren.

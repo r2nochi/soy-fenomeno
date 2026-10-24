@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/interprete",
     "/herramientas",
     ...HERRAMIENTAS.map((h) => h.href),
+    "/apps",
     "/blog",
     "/comunidad",
     "/trabajos",
