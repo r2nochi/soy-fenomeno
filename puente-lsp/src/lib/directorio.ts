@@ -33,6 +33,8 @@ export const DIRECTORIO: Grupo[] = [
           { texto: "Instagram", url: "http://instagram.com/nucleo.somos" },
           { texto: "Facebook", url: "https://www.facebook.com/profile.php?id=100086980453518" },
           { texto: "YouTube", url: "https://www.youtube.com/@nucleosomos" },
+          { texto: "X", url: "https://x.com/nucleosomos" },
+          { texto: "Contacto", url: "https://nucleosomos.org.pe/contacto/" },
         ],
         fuente: "https://nucleosomos.org.pe/organizacion/",
       },

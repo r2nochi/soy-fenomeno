@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/comunidad",
     "/trabajos",
+    "/nosotros",
     "/privacidad",
   ].map((ruta) => ({ url: `${URL_SITIO}${ruta}` }));
   const articulos = ARTICULOS.map((a) => ({

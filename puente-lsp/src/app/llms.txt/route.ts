@@ -28,6 +28,7 @@ ${herramientas.join("\n")}
 - [Apps útiles](${urlAbsoluta("/apps")}): subtítulos en vivo, avisos de sonidos y servicios para personas Sordas que ya existen, en el Perú y en otros países, con cómo activarlos.
 - [Trabajos para personas con discapacidad](${urlAbsoluta("/trabajos")}): empleos por área en el Perú.
 - [Comunidad](${urlAbsoluta("/comunidad")}): organizaciones Sordas, cursos de LSP e instituciones.
+- [Quiénes somos](${urlAbsoluta("/nosotros")}): misión, visión, cómo trabajamos y cómo sumarse.
 - [Privacidad](${urlAbsoluta("/privacidad")}): qué datos se guardan y cómo pedir que se borren.
 
 ## Blog
