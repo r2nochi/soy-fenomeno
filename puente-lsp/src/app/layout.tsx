@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Atkinson_Hyperlegible } from "next/font/google";
 import { DESCRIPCION_SITIO, FEED_BLOG, NOMBRE_SITIO } from "@/lib/seo";
 import { URL_SITIO } from "@/lib/sitio";
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <PiePagina />
         <Asistente />
+        <Analytics />
       </body>
     </html>
   );

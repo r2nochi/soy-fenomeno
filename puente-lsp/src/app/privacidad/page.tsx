@@ -27,22 +27,31 @@ const SECCIONES = [
   {
     titulo: "Lo que sí guardamos",
     texto: [
-      "Solo lo que escribes en tres formularios: la lista del piloto de intérpretes, el registro del Sello y la recomendación de un lugar.",
+      "Lo que escribes en tres formularios: la lista del piloto de intérpretes, el registro del Sello y la recomendación de un lugar.",
       "Lo usamos para contactarte y para publicar los lugares. El correo de un negocio nunca se muestra en la página.",
       "Para evitar abusos guardamos un código de tu conexión (no tu dirección IP). Se borra después de un día, cuando llega el siguiente envío.",
     ],
   },
   {
+    titulo: "Cuántas personas nos visitan",
+    texto: [
+      "Contamos las visitas con Vercel Web Analytics para saber qué páginas sirven más. No usa cookies de terceros ni guarda tu dirección IP, y no sabe quién eres: solo vemos totales.",
+      "Por cada visita se anota: la página que viste, desde qué página llegaste, tu país, región o ciudad aproximada, tu navegador, tu sistema y si usas celular, tableta o computadora.",
+      "Para no contar dos veces a la misma persona se usa un código que se borra después de un día.",
+    ],
+  },
+  {
     titulo: "Dónde se guarda",
     texto: [
-      "Los datos están en Supabase, un servicio de base de datos con servidores en Estados Unidos. La página funciona en Vercel. Son proveedores que procesan los datos por encargo nuestro.",
+      "Los datos están en Supabase, un servicio de base de datos con servidores en Estados Unidos. La página funciona en Vercel, que también guarda las estadísticas de visitas en servidores fuera del Perú. Son proveedores que procesan los datos por encargo nuestro.",
       "No vendemos ni compartimos tus datos con otras empresas.",
     ],
   },
   {
     titulo: "Cuánto tiempo",
     texto: [
-      "Mientras dure el piloto, o hasta que nos pidas borrarlos.",
+      "Los datos de los formularios: mientras dure el piloto, o hasta que nos pidas borrarlos.",
+      "Las estadísticas de visitas: las vemos durante un mes, según el plan gratuito de Vercel.",
     ],
   },
   {
