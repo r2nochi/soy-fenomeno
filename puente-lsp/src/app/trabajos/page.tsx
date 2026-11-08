@@ -3,6 +3,8 @@ import { metaPagina } from "@/lib/seo";
 import { Suspense } from "react";
 import { BadgeCheck, BriefcaseBusiness, ExternalLink, Landmark } from "lucide-react";
 import { AREAS, convocatoriasDelDia, type AreaId } from "@/lib/trabajos";
+import { paisesTrabajos } from "@/lib/paises-recursos";
+import { BotonesPais } from "@/components/BotonesPais";
 import { ListaTrabajos } from "@/components/ListaTrabajos";
 
 export const metadata: Metadata = metaPagina({
@@ -97,6 +99,7 @@ export default function Trabajos() {
         Empleos de todas las áreas que aceptan a personas con discapacidad: TI,
         recursos humanos, administración, salud, atención al público y más.
       </p>
+      <BotonesPais base="/trabajos" paises={paisesTrabajos()} activo="peru" />
 
       <section aria-labelledby="titulo-inclusivos" className="mt-12">
         <h2 id="titulo-inclusivos" className="text-3xl font-bold">

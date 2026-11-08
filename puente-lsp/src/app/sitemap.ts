@@ -3,6 +3,7 @@ import { ARTICULOS } from "@/lib/blog";
 import { PAISES_DERECHOS, categoriasDe } from "@/lib/derechos";
 import { HERRAMIENTAS } from "@/lib/herramientas";
 import { filtrosConNoticias } from "@/lib/noticias";
+import { paisesComunidad, paisesTrabajos } from "@/lib/paises-recursos";
 import { URL_SITIO } from "@/lib/sitio";
 
 // Solo las páginas que deben salir en buscadores. La fecha va solo donde es
@@ -24,7 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/noticias",
     ...filtrosConNoticias().map((f) => `/noticias/${f.slug}`),
     "/comunidad",
+    ...paisesComunidad().map((p) => `/comunidad/${p.slug}`),
     "/trabajos",
+    ...paisesTrabajos().map((p) => `/trabajos/${p.slug}`),
     "/nosotros",
     "/privacidad",
   ].map((ruta) => ({ url: `${URL_SITIO}${ruta}` }));
