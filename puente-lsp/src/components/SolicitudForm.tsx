@@ -4,7 +4,9 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { enviarSolicitud } from "@/app/actions";
 import {
   AMBITOS,
+  LENGUAS_SENAS,
   LIMITES,
+  PAISES,
   TIPOS_SOLICITANTE,
   URGENCIAS,
   type EstadoFormulario,
@@ -176,6 +178,56 @@ export function SolicitudForm() {
         </div>
       </div>
 
+      {tipo === "interprete" && (
+        <>
+          <div>
+            <label htmlFor="pais" className={etiqueta}>
+              ¿De qué país eres?
+            </label>
+            <select
+              key={v("pais")}
+              id="pais"
+              name="pais"
+              defaultValue={v("pais")}
+              {...invalido("pais")}
+              className={campo}
+            >
+              <option value="">Elige un país</option>
+              {Object.entries(PAISES).map(([valor, texto]) => (
+                <option key={valor} value={valor}>
+                  {texto}
+                </option>
+              ))}
+            </select>
+            <MensajeError id="error-pais" errores={e.pais} />
+            <p className="mt-2 text-base text-suave">
+              Por ahora el piloto atiende en el Perú. Si estás en otro país, te
+              anotamos para cuando podamos abrirlo allí.
+            </p>
+          </div>
+
+          <fieldset aria-describedby={e.lenguas ? "error-lenguas" : undefined}>
+            <legend className={etiqueta}>¿Qué lenguas de señas sabes?</legend>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {Object.entries(LENGUAS_SENAS).map(([valor, texto]) => (
+                <label key={valor} className={opcion}>
+                  <input
+                    type="checkbox"
+                    name="lenguas"
+                    value={valor}
+                    defaultChecked={v("lenguas").split(",").includes(valor)}
+                    {...invalido("lenguas")}
+                    className="size-5 accent-acento"
+                  />
+                  {texto}
+                </label>
+              ))}
+            </div>
+            <MensajeError id="error-lenguas" errores={e.lenguas} />
+          </fieldset>
+        </>
+      )}
+
       {tipo !== "interprete" && (
         <>
           <fieldset>
@@ -223,6 +275,7 @@ export function SolicitudForm() {
               ¿Para qué?
             </label>
             <select
+              key={v("ambito")}
               id="ambito"
               name="ambito"
               defaultValue={v("ambito")}

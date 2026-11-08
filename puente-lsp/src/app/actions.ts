@@ -7,6 +7,8 @@ import { solicitudSchema, type EstadoFormulario } from "@/lib/solicitud";
 
 const MENSAJE_EXITO =
   "Ya estás en la lista. Te escribimos por WhatsApp o correo cuando tengamos un intérprete disponible.";
+const MENSAJE_EXITO_INTERPRETE =
+  "Ya estás en la lista. Te escribimos por WhatsApp o correo para coordinar tu participación.";
 
 export async function enviarSolicitud(
   _prev: EstadoFormulario,
@@ -27,7 +29,21 @@ export async function enviarSolicitud(
     return { ok: true, mensaje: MENSAJE_EXITO };
   }
 
-  const resultado = solicitudSchema.safeParse(datos);
+  // Las casillas de lenguas llegan repetidas; en `datos` quedan unidas por
+  // comas para volver a marcarlas si hay un error.
+  // País y lenguas solo se aceptan de intérpretes.
+  const esInterprete = datos.tipo === "interprete";
+  const lenguas = esInterprete
+    ? [...new Set(formData.getAll("lenguas").filter((l) => typeof l === "string"))]
+    : [];
+  delete datos.lenguas;
+  if (!esInterprete) delete datos.pais;
+  if (lenguas.length > 0) datos.lenguas = lenguas.join(",");
+
+  const resultado = solicitudSchema.safeParse({
+    ...datos,
+    lenguas: lenguas.length > 0 ? lenguas : undefined,
+  });
   if (!resultado.success) {
     return {
       ok: false,
@@ -65,5 +81,5 @@ export async function enviarSolicitud(
     };
   }
 
-  return { ok: true, mensaje: MENSAJE_EXITO };
+  return { ok: true, mensaje: esInterprete ? MENSAJE_EXITO_INTERPRETE : MENSAJE_EXITO };
 }

@@ -3,7 +3,42 @@ import { z } from "zod";
 export const TIPOS_SOLICITANTE = {
   persona_sorda: "Soy una persona Sorda",
   entidad: "Represento a una empresa o entidad",
-  interprete: "Soy intérprete de LSP",
+  interprete: "Soy intérprete de lengua de señas",
+} as const;
+
+// Mantener iguales a los checks de la migración 0004.
+export const PAISES = {
+  peru: "Perú",
+  argentina: "Argentina",
+  bolivia: "Bolivia",
+  chile: "Chile",
+  colombia: "Colombia",
+  costa_rica: "Costa Rica",
+  cuba: "Cuba",
+  ecuador: "Ecuador",
+  el_salvador: "El Salvador",
+  espana: "España",
+  estados_unidos: "Estados Unidos",
+  guatemala: "Guatemala",
+  honduras: "Honduras",
+  mexico: "México",
+  nicaragua: "Nicaragua",
+  panama: "Panamá",
+  paraguay: "Paraguay",
+  republica_dominicana: "República Dominicana",
+  uruguay: "Uruguay",
+  venezuela: "Venezuela",
+  otro: "Otro país",
+} as const;
+
+export const LENGUAS_SENAS = {
+  lsp: "Peruana (LSP)",
+  lsc: "Colombiana (LSC)",
+  lsch: "Chilena (LSCh)",
+  lsm: "Mexicana (LSM)",
+  lsa: "Argentina (LSA)",
+  asl: "Americana (ASL)",
+  otra: "Otra",
 } as const;
 
 export const URGENCIAS = {
@@ -41,7 +76,7 @@ export const solicitudSchema = z
   .object({
     tipo: z.enum(llaves(TIPOS_SOLICITANTE), { error: "Elige una opción." }),
     nombre: z
-      .string()
+      .string({ error: "Escribe tu nombre." })
       .trim()
       .min(2, { error: "Escribe tu nombre." })
       .max(LIMITES.nombre, muyLargo(LIMITES.nombre)),
@@ -63,6 +98,11 @@ export const solicitudSchema = z
     email: z
       .email({ error: "Escribe un correo válido." })
       .max(LIMITES.email, muyLargo(LIMITES.email))
+      .optional(),
+    pais: z.enum(llaves(PAISES), { error: "Elige tu país." }).optional(),
+    lenguas: z
+      .array(z.enum(llaves(LENGUAS_SENAS), { error: "Elige una opción de la lista." }))
+      .max(Object.keys(LENGUAS_SENAS).length)
       .optional(),
     urgencia: z.enum(llaves(URGENCIAS)).optional(),
     fecha: z
@@ -91,6 +131,16 @@ export const solicitudSchema = z
   .refine((d) => d.tipo !== "entidad" || d.organizacion, {
     error: "Escribe el nombre de tu empresa o entidad.",
     path: ["organizacion"],
+    when: () => true,
+  })
+  .refine((d) => d.tipo !== "interprete" || d.pais, {
+    error: "Elige tu país.",
+    path: ["pais"],
+    when: () => true,
+  })
+  .refine((d) => d.tipo !== "interprete" || d.lenguas?.length, {
+    error: "Marca al menos una lengua de señas.",
+    path: ["lenguas"],
     when: () => true,
   })
   .refine((d) => d.urgencia !== "fecha" || d.fecha, {

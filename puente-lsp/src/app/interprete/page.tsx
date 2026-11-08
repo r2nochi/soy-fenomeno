@@ -141,11 +141,12 @@ export default function Interprete() {
 
         <section id="interpretes" className="bg-fondo-alt py-14">
           <div className="mx-auto max-w-5xl px-4">
-            <h2 className="mb-5 text-3xl font-bold">¿Eres intérprete de LSP?</h2>
+            <h2 className="mb-5 text-3xl font-bold">¿Eres intérprete de lengua de señas?</h2>
             <p className="max-w-3xl text-xl">
               Súmate a la red como voluntario o voluntaria del piloto y atiende
-              por videollamada desde donde estés. Elige la opción «Soy
-              intérprete de LSP» en el formulario.
+              por videollamada desde donde estés. Elige «Soy intérprete de
+              lengua de señas» en el formulario e indica tu país y las lenguas
+              de señas que sabes. Por ahora el piloto atiende en LSP, en el Perú.
             </p>
           </div>
         </section>
@@ -160,7 +161,8 @@ export default function Interprete() {
           </h2>
           <p className="mb-8 text-xl text-suave">
             No es una reserva confirmada. Te escribimos si encontramos un
-            intérprete disponible.
+            intérprete disponible. Si eres intérprete, te escribimos para
+            coordinar tu participación.
           </p>
           <SolicitudForm />
         </section>
