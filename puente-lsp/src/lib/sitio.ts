@@ -5,15 +5,19 @@ export const URL_SITIO = (
   process.env.NEXT_PUBLIC_URL_SITIO || "https://puente-lsp.vercel.app"
 ).replace(/\/+$/, "");
 
+// Primero lo que se usa para resolver algo hoy; después aprender, leer y conocernos.
 export const NAVEGACION = [
   { href: "/interprete", texto: "Intérprete LSP" },
   { href: "/herramientas", texto: "Herramientas" },
-  { href: "/aprende", texto: "Aprende LSP" },
-  { href: "/apps", texto: "Apps útiles" },
   { href: "/lugares", texto: "Lugares" },
+  { href: "/apps", texto: "Apps útiles" },
+  { href: "/aprende", texto: "Aprende LSP" },
   { href: "/trabajos", texto: "Trabajos" },
-  { href: "/blog", texto: "Blog" },
+  { href: "/derechos", texto: "Derechos" },
   { href: "/comunidad", texto: "Comunidad" },
+  { href: "/blog", texto: "Blog" },
+  { href: "/noticias", texto: "Noticias" },
+  { href: "/nosotros", texto: "Nosotros" },
 ] as const;
 
 // Enlaces de las redes de la comunidad. Cuando exista una cuenta, se pega su

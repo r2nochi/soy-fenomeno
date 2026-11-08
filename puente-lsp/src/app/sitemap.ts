@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { ARTICULOS } from "@/lib/blog";
+import { PAISES_DERECHOS, categoriasDe } from "@/lib/derechos";
 import { HERRAMIENTAS } from "@/lib/herramientas";
+import { filtrosConNoticias } from "@/lib/noticias";
 import { URL_SITIO } from "@/lib/sitio";
 
 // Solo las páginas que deben salir en buscadores. La fecha va solo donde es
@@ -14,6 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/aprende",
     "/apps",
     "/blog",
+    "/derechos",
+    ...PAISES_DERECHOS.flatMap((p) => [
+      `/derechos/${p.slug}`,
+      ...categoriasDe(p.slug).map((c) => `/derechos/${p.slug}/${c.slug}`),
+    ]),
+    "/noticias",
+    ...filtrosConNoticias().map((f) => `/noticias/${f.slug}`),
     "/comunidad",
     "/trabajos",
     "/nosotros",
