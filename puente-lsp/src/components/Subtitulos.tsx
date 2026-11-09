@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState, type FormEvent } from "react";
+import { ExternalLink } from "lucide-react";
 import {
   etiquetasPresentes,
   textoEtiqueta,
@@ -19,6 +20,8 @@ type Suscribir = (fn: (valores: ArrayLike<number>) => void) => () => void;
 
 const TAMANOS = ["text-2xl", "text-3xl", "text-4xl", "text-5xl"];
 const CLAVE_TAMANO = "alerta-visual:tamano-subtitulos";
+const APP_GOOGLE =
+  "https://play.google.com/store/apps/details?id=com.google.audio.hearing.visualization.accessibility.scribe&hl=es";
 // Un sonido debe repetirse en ventanas cercanas antes de escribirse.
 const GOLPES = 2;
 const ENTRE_GOLPES_MS = 1500;
@@ -308,6 +311,23 @@ export function Subtitulos({
           🔊 Decir
         </button>
       </form>
+
+      {esAndroid && (
+        <p className="mt-3 rounded-xl border-2 border-borde p-3 text-lg">
+          ¿Faltan palabras? En Android también puedes usar{" "}
+          <a
+            href={APP_GOOGLE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-bold"
+          >
+            Transcripción instantánea
+            <ExternalLink aria-hidden="true" className="size-5" />
+            <span className="sr-only">(se abre en otra pestaña)</span>
+          </a>
+          , la app gratis de Google.
+        </p>
+      )}
 
       {esAndroid && (
         <p className="mt-3 rounded-xl border-2 border-borde p-3 text-base">

@@ -44,6 +44,8 @@ type Opciones = {
 const COMPLEMENTO_ALERTA = "Los avisos de sonido siguen funcionando.";
 const ESPERA_INICIAL_MS = 300;
 const ESPERA_MAXIMA_MS = 30000;
+// Una sesión que duró al menos esto no falló: Chrome la cerró por silencio o por tiempo.
+const SESION_SANA_MS = 2000;
 // Errores que no se arreglan reintentando sin parar.
 const ERRORES_FATALES = new Set(["not-allowed", "service-not-allowed"]);
 const INTENTOS_SIN_MIC = 5;
@@ -73,6 +75,14 @@ export function iniciarVoz({
   let espera = ESPERA_INICIAL_MS;
   let idioma = 0;
   let sinMic = 0;
+  // Texto que el reconocedor aún no confirmó: se entrega si la sesión se corta.
+  let pendiente = "";
+
+  function entregarPendiente() {
+    if (pendiente) alFinal(pendiente);
+    pendiente = "";
+    alParcial("");
+  }
 
   function soltar(r: Reconocedor | null, modo: "stop" | "abort") {
     if (!r) return;
@@ -93,6 +103,8 @@ export function iniciarVoz({
   function arrancar() {
     if (!activo || pausado || actual) return;
     const r = new Clase!();
+    const inicio = Date.now();
+    let fallo = false;
     r.lang = idiomas[idioma];
     r.continuous = true;
     r.interimResults = true;
@@ -109,11 +121,17 @@ export function iniciarVoz({
         if (res.isFinal) alFinal(texto);
         else parcial += `${texto} `;
       }
-      alParcial(parcial.trim());
+      pendiente = parcial.trim();
+      alParcial(pendiente);
     };
 
     r.onerror = (e) => {
       if (r !== actual) return;
+      if (e.error !== "no-speech" && e.error !== "aborted") {
+        fallo = true;
+        // Antes del aviso: alFinal puede limpiar el mensaje de error en pantalla.
+        entregarPendiente();
+      }
       if (ERRORES_FATALES.has(e.error)) {
         activo = false;
         alError("No hay permiso para usar el micrófono en la transcripción.");
@@ -136,7 +154,8 @@ export function iniciarVoz({
     r.onend = () => {
       if (r !== actual) return;
       actual = null;
-      alParcial("");
+      entregarPendiente();
+      if (!fallo && Date.now() - inicio >= SESION_SANA_MS) espera = ESPERA_INICIAL_MS;
       programar();
     };
 
@@ -157,14 +176,16 @@ export function iniciarVoz({
     detener() {
       activo = false;
       clearTimeout(temporizador);
+      entregarPendiente();
       soltar(actual, "abort");
       actual = null;
     },
     // Mientras el equipo habla en voz alta, no se transcribe a sí mismo.
-    // stop() (no abort) entrega como final lo que la otra persona estaba diciendo.
+    // Lo que la otra persona estaba diciendo se entrega antes de cortar.
     pausar() {
       if (pausado) return;
       pausado = true;
+      entregarPendiente();
       clearTimeout(temporizador);
       const r = actual;
       actual = null;
