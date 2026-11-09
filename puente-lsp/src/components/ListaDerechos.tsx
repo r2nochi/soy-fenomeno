@@ -1,16 +1,38 @@
 import Link from "next/link";
 import { ExternalLink, TriangleAlert } from "lucide-react";
 import { fechaLegible } from "@/lib/blog";
-import { REVISADO, categoriasDe, type Beneficio } from "@/lib/derechos";
+import { PAISES_DERECHOS, REVISADO, categoriasDe, paisDerechos, type Beneficio } from "@/lib/derechos";
 
 const chip =
   "inline-flex min-h-12 items-center rounded-full border-2 px-5 text-lg font-bold no-underline";
 const inactivo = "border-borde/55 hover:border-acento hover:text-acento";
 const encendido = "border-accion bg-accion text-sobre-accion";
 
+export function BotonesPaisDerechos({ activo }: { activo: string }) {
+  return (
+    <nav aria-label="Elegir país" className="mt-8">
+      <p className="mb-3 text-lg font-bold text-suave">País</p>
+      <ul className="flex flex-wrap gap-3">
+        {PAISES_DERECHOS.map((p) => (
+          <li key={p.slug}>
+            <Link
+              href={`/derechos/${p.slug}`}
+              aria-current={p.slug === activo ? "true" : undefined}
+              className={`${chip} ${p.slug === activo ? encendido : inactivo}`}
+            >
+              {p.nombre}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export function FiltrosCategorias({ pais, activa }: { pais: string; activa?: string }) {
   return (
-    <nav aria-label="Elegir categoría" className="mt-10">
+    <nav aria-label="Elegir tema" className="mt-8">
+      <p className="mb-3 text-lg font-bold text-suave">Tema</p>
       <ul className="flex flex-wrap gap-3">
         <li>
           <Link
@@ -18,7 +40,7 @@ export function FiltrosCategorias({ pais, activa }: { pais: string; activa?: str
             aria-current={!activa ? "page" : undefined}
             className={`${chip} ${!activa ? encendido : inactivo}`}
           >
-            Todo
+            Todos los temas
           </Link>
         </li>
         {categoriasDe(pais).map((c) => (
@@ -77,13 +99,14 @@ export function TarjetaBeneficio({ b, Titulo }: { b: Beneficio; Titulo: "h2" | "
   );
 }
 
-export function AvisoDerechos() {
+export function AvisoDerechos({ pais }: { pais?: string }) {
+  const aviso =
+    (pais && paisDerechos(pais)?.aviso) ||
+    "Las leyes cambian y son distintas en cada país. Antes de un trámite importante, confirma en la entidad que corresponde.";
   return (
     <p className="mt-12 max-w-[65ch] text-lg text-suave">
       Información general en español sencillo; no es asesoría legal. Revisado el{" "}
-      {fechaLegible(REVISADO)}. Los enlaces a la Ley 29973 llevan a su texto
-      original de 2012, y algunos artículos cambiaron después. Antes de un trámite
-      importante, confirma en la entidad o en el Conadis.
+      {fechaLegible(REVISADO)}. {aviso}
     </p>
   );
 }

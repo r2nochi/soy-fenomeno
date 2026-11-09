@@ -7,7 +7,7 @@ import { AvisoDerechos } from "@/components/ListaDerechos";
 export const metadata: Metadata = metaPagina({
   titulo: "Derechos y beneficios de las personas Sordas",
   descripcion:
-    "Carné del Conadis, pase libre, intérprete, cuota de empleo, descuentos y pensión. Qué dice la ley, para quién es y cómo pedirlo, con su fuente, en español sencillo.",
+    "Qué dice la ley en Perú, Colombia, Chile, México y Argentina sobre certificados, intérprete, transporte, trabajo y pensiones. Para quién es y cómo pedirlo, con su fuente.",
   ruta: "/derechos",
 });
 
@@ -20,28 +20,22 @@ export default function Derechos() {
         a su fuente.
       </p>
 
-      {PAISES_DERECHOS.map((p) => (
-        <section key={p.slug} className="mt-12">
-          <h2 className="text-4xl font-bold">
-            <Link href={`/derechos/${p.slug}`} className="no-underline hover:underline">
-              {p.nombre}
+      <h2 className="mt-12 text-4xl font-bold">Elige tu país</h2>
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+        {PAISES_DERECHOS.map((p) => (
+          <li key={p.slug}>
+            <Link
+              href={`/derechos/${p.slug}`}
+              className="block h-full rounded-2xl border-2 border-borde/55 bg-superficie p-6 no-underline hover:border-acento"
+            >
+              <span className="block text-3xl font-bold">{p.nombre}</span>
+              <span className="mt-2 block text-xl leading-snug text-suave">
+                {categoriasDe(p.slug).map((c) => c.nombre).join(" · ")}
+              </span>
             </Link>
-          </h2>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-            {categoriasDe(p.slug).map((c) => (
-              <li key={c.slug}>
-                <Link
-                  href={`/derechos/${p.slug}/${c.slug}`}
-                  className="block h-full rounded-2xl border-2 border-borde/55 bg-superficie p-6 no-underline hover:border-acento"
-                >
-                  <span className="block text-2xl font-bold">{c.nombre}</span>
-                  <span className="mt-1 block text-xl leading-snug text-suave">{c.resumen}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+          </li>
+        ))}
+      </ul>
       <AvisoDerechos />
     </main>
   );

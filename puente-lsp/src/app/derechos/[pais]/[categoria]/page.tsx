@@ -49,7 +49,7 @@ export default async function DerechosCategoria({
           <TarjetaBeneficio key={b.id} b={b} Titulo="h2" />
         ))}
       </div>
-      <AvisoDerechos />
+      <AvisoDerechos pais={p.slug} />
     </main>
   );
 }

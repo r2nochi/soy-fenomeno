@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { metaPagina } from "@/lib/seo";
 import { PAISES_DERECHOS, beneficiosDe, categoriasDe, paisDerechos } from "@/lib/derechos";
-import { AvisoDerechos, FiltrosCategorias, TarjetaBeneficio } from "@/components/ListaDerechos";
+import { AvisoDerechos, BotonesPaisDerechos, FiltrosCategorias, TarjetaBeneficio } from "@/components/ListaDerechos";
 
 export function generateStaticParams() {
   return PAISES_DERECHOS.map((p) => ({ pais: p.slug }));
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<"/derechos/[pais]">
   if (!p) return {};
   return metaPagina({
     titulo: `Derechos y beneficios de las personas Sordas en ${p.nombre}`,
-    descripcion: `Qué dice la ley en ${p.nombre}: trámites, intérprete, salud, transporte, educación, trabajo, descuentos y ayuda económica. Con su fuente.`,
+    descripcion: `Qué dice la ley en ${p.nombre}: ${categoriasDe(p.slug).map((c) => c.nombre.toLowerCase()).join(", ")}. Para quién es y cómo pedirlo, con su fuente.`,
     ruta: `/derechos/${p.slug}`,
   });
 }
@@ -34,6 +34,7 @@ export default async function DerechosPais({ params }: PageProps<"/derechos/[pai
       <h1 className="mt-6 max-w-[24ch] text-5xl font-bold tracking-tight text-balance sm:text-6xl">
         Derechos y beneficios en {p.nombre}
       </h1>
+      <BotonesPaisDerechos activo={p.slug} />
       <FiltrosCategorias pais={p.slug} />
       {categoriasDe(p.slug).map((c) => (
         <section key={c.slug} className="mt-14">
@@ -45,7 +46,7 @@ export default async function DerechosPais({ params }: PageProps<"/derechos/[pai
           </div>
         </section>
       ))}
-      <AvisoDerechos />
+      <AvisoDerechos pais={p.slug} />
     </main>
   );
 }
